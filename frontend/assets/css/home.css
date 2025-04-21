@@ -1,0 +1,90 @@
+body {
+  font-family: 'Segoe UI', sans-serif;
+  background-color: #f4f7fa;
+  color: #333;
+}
+
+/* Carousel Customization */
+.custom-carousel img {
+  height: 420px;
+  object-fit: cover;
+ 
+}
+
+/* Card Box Styling */
+.card-box {
+  background: white;
+  border-radius: 16px;
+  padding: 30px;
+  margin: 30px auto;
+  max-width: 1100px;
+  box-shadow: 0 10px 25px rgba(0, 0, 0, 0.07);
+}
+
+.welcome-heading {
+  font-size: 28px;
+  font-weight: 600;
+  margin-bottom: 10px;
+}
+
+/* KPI Metrics */
+.metric-box {
+  background: white;
+  border-radius: 16px;
+  padding: 25px;
+  color: white;
+  text-align: center;
+  position: relative;
+  transition: transform 0.3s ease;
+}
+
+.metric-box:hover {
+  transform: translateY(-5px);
+}
+
+.metric-title {
+  font-size: 18px;
+  margin-bottom: 10px;
+  font-weight: 600;
+}
+
+.metric-value {
+  font-size: 36px;
+  font-weight: 700;
+}
+
+.metric-unit {
+  display: block;
+  font-size: 14px;
+  opacity: 0.9;
+  margin-top: 5px;
+}
+
+.dark-mode {
+  background-color: #1e1e2f;
+  color: #f1f1f1;
+}
+.dark-mode .card-box,
+.dark-mode .metric-box {
+  background-color: #2c2c3e;
+  color: #f1f1f1;
+}
+
+
+.bg-gradient-primary {
+  background: linear-gradient(135deg, #007bff, #00c6ff);
+}
+
+.bg-gradient-warning {
+  background: linear-gradient(135deg, #f0ad4e, #ffc107);
+}
+
+.bg-gradient-success {
+  background: linear-gradient(135deg, #28a745, #66bb6a);
+}
+
+@media screen and (max-width: 768px) {
+  .metric-value {
+    font-size: 28px;
+  }
+}

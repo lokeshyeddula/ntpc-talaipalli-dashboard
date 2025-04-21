@@ -1,0 +1,75 @@
+<%- include("partials/header", { title: "Home", pageCSS: "home" }) %>
+
+<!-- Carousel -->
+<div id="carouselExampleIndicators" class="carousel slide custom-carousel" data-ride="carousel">
+  <ol class="carousel-indicators">
+    <li data-target="#carouselExampleIndicators" data-slide-to="0" class="active"></li>
+    <li data-target="#carouselExampleIndicators" data-slide-to="1"></li>
+    <li data-target="#carouselExampleIndicators" data-slide-to="2"></li>
+    <li data-target="#carouselExampleIndicators" data-slide-to="3"></li>
+  </ol>
+  <div class="carousel-inner">
+    <div class="carousel-item active">
+      <img class="d-block w-100" src="/assets/images/slide1.jpg" alt="First slide">
+    </div>
+    <div class="carousel-item">
+      <img class="d-block w-100" src="/assets/images/slide2.jpg" alt="Second slide">
+    </div>
+    <div class="carousel-item">
+      <img class="d-block w-100" src="/assets/images/slide3.jpg" alt="Third slide">
+    </div>
+    <div class="carousel-item">
+      <img class="d-block w-100" src="/assets/images/slide4.jpg" alt="Fourth slide">
+    </div>
+  </div>
+  <a class="carousel-control-prev" href="#carouselExampleIndicators" role="button" data-slide="prev">
+    <span class="carousel-control-prev-icon"></span>
+    <span class="sr-only">Previous</span>
+  </a>
+  <a class="carousel-control-next" href="#carouselExampleIndicators" role="button" data-slide="next">
+    <span class="carousel-control-next-icon"></span>
+    <span class="sr-only">Next</span>
+  </a>
+</div>
+
+<!-- Welcome Section -->
+<div class="card-box text-center mt-5">
+  <h2 class="welcome-heading">Welcome to NTPC Talaipalli Dashboard</h2>
+  <p class="lead">Get real-time insights into coal production, OB removal, and safety KPIs.</p>
+</div>
+
+<!-- KPI Cards -->
+<div class="card-box mt-4">
+  <h4 class="mb-4">Today's Key Metrics</h4>
+  <div class="row g-4">
+    <div class="col-md-4">
+      <div class="metric-box shadow bg-gradient-primary">
+        <div class="metric-title">Coal Production</div>
+        <div id="daily_coal" class="metric-value" data-target="0">0</div>
+        <span class="metric-unit">Tons</span>
+      </div>
+    </div>
+    <div class="col-md-4">
+      <div class="metric-box shadow bg-gradient-warning">
+        <div class="metric-title">OB Removal</div>
+        <div id="daily_ob" class="metric-value" data-target="0">0</div>
+        <span class="metric-unit">m³</span>
+      </div>
+    </div>
+    <div class="col-md-4">
+      <div class="metric-box shadow bg-gradient-success">
+        <div class="metric-title">Dispatch Today</div>
+        <div class="metric-value" data-target="0">0</div>
+        <span class="metric-unit">Tons</span>
+      </div>
+    </div>
+  </div>
+</div>
+
+<%- include("partials/footer") %>
+
+<!-- Scripts -->
+<script src="https://code.jquery.com/jquery-3.5.1.slim.min.js"></script>
+<script src="https://cdn.jsdelivr.net/npm/popper.js@1.16.1/dist/umd/popper.min.js"></script>
+<script src="https://stackpath.bootstrapcdn.com/bootstrap/4.5.2/js/bootstrap.min.js"></script>
+<script src="/assets/js/home.js"></script>

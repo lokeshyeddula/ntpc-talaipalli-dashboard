@@ -1,0 +1,185 @@
+body {
+  background-color: beige;
+  font-family: "Segoe UI", Tahoma, Geneva, Verdana, sans-serif;
+  color: #333;
+}
+
+
+
+h5 {
+  font-weight: 600;
+  color: #1e2a38;
+}
+
+label {
+  font-weight: 500;
+  margin-bottom: 0.5rem;
+  display: block;
+}
+
+input[type="date"],
+input[type="number"],
+select,
+textarea {
+  border-radius: 0.5rem;
+  border: 1px solid #ced4da;
+  padding: 0.6rem 0.75rem;
+  font-size: 0.95rem;
+  transition: border-color 0.3s, box-shadow 0.3s;
+}
+
+input:focus,
+select:focus,
+textarea:focus {
+  border-color: #174674;
+  box-shadow: 0 0 0 0.15rem rgba(13, 110, 253, 0.25);
+  outline: none;
+}
+
+.table-responsive {
+  border-radius: 0.75rem;
+  overflow: hidden;
+}
+
+table {
+  width: 100%;
+  border-collapse: collapse;
+  margin-bottom: 1rem;
+}
+
+thead {
+  background-color: #174674;
+  color: #ffffff;
+  font-weight: 600;
+}
+
+thead th {
+  padding: 0.75rem;
+  text-align: center;
+  font-size: 1rem;
+}
+
+tbody td {
+  vertical-align: middle;
+  text-align: center;
+  padding: 0.6rem;
+  background-color: #fefefe;
+}
+
+tbody tr:nth-child(even) td {
+  background-color: #f3f8ff;
+}
+
+tbody tr:hover {
+  background-color: #e9f1ff;
+  cursor: pointer;
+}
+
+th,
+td {
+  text-align: center;
+  vertical-align: middle;
+}
+
+.btn-add,
+.btn-delete {
+  padding: 0.35rem 0.75rem;
+  border: none;
+  border-radius: 0.5rem;
+  cursor: pointer;
+  font-size: 0.85rem;
+}
+
+.btn-add {
+  background-color: #198754;
+  color: #ffffff;
+}
+
+.btn-delete {
+  background-color: #dc3545;
+  color: #ffffff;
+  margin-left: 0.5rem;
+}
+
+.action-buttons {
+  display: flex;
+  justify-content: center;
+  gap: 0.5rem;
+}
+
+.bg-light.rounded.border {
+  background-color: #e9f0ff !important;
+  border: 1px solid #b6d4fe !important;
+  font-weight: 600;
+  font-size: 1rem;
+}
+
+.btn-primary {
+  background-color: #174674;
+  border: none;
+  font-weight: 600;
+  padding: 0.6rem 1.2rem;
+  border-radius: 0.6rem;
+  transition: background-color 0.3s;
+}
+
+.btn-primary:hover {
+  background-color: #174674;
+}
+
+textarea {
+  resize: vertical;
+  min-height: 80px;
+}
+
+.table thead th {
+  background-color: #174674;
+  color: white;
+  font-weight: bold;
+  text-align: center;
+}
+
+.table tbody td {
+  text-align: center;
+}
+
+.table-striped tbody tr:nth-of-type(odd) {
+  background-color: #f3f8ff;
+}
+
+.table-bordered td,
+.table-bordered th {
+  border: 1px solid #dee2e6;
+}
+
+input[type="number"],
+textarea {
+  border-radius: 0.5rem;
+  border: 1px solid #ced4da;
+  padding: 0.6rem;
+  font-size: 0.95rem;
+}
+
+.row .col-md-4, .row .col-md-6 {
+  margin-bottom: 1.5rem;
+}
+
+.form-select, .form-control {
+  height: calc(2.25rem + 2px);
+  font-size: 0.95rem;
+  padding: 0.6rem;
+}
+
+input[type="number"]::-webkit-outer-spin-button,
+input[type="number"]::-webkit-inner-spin-button {
+  -webkit-appearance: none;
+  margin: 0;
+}
+
+.btn {
+  border-radius: 0.5rem;
+}
+.dark-mode {
+  background-color: #1e1e2f;
+  color: #f1f1f1;
+}

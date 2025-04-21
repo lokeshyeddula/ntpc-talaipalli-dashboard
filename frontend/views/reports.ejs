@@ -1,0 +1,131 @@
+<%- include("partials/header", { title: "Reports", pageCSS: "reports" }) %>
+<div id="content">
+    <div class="container mt-4">
+        <h4 class="form-title">Daily Production Report (DPR)</h4>
+        <label for="reportDate"><strong>Select Date:</strong></label>
+        <input type="date" id="reportDate" class="form-control w-25 mb-3">
+        <button onclick="downloadExcel()" class="btn btn-success"><i class="fas fa-file-excel"></i> Download Excel</button>
+        <button onclick="downloadPDF()" class="btn btn-danger"><i class="fas fa-file-pdf"></i> Download PDF</button>
+        <table id="reportTable" class="table table-bordered mt-3">
+            <thead>
+                <tr class="header-row">
+                    <td colspan="20">Production Report</td>
+                </tr>
+                <tr class="header-row">
+                    <td colspan="20">Talaipalli Coal Mining Project (TLCMP)</td>
+                </tr>
+                <tr class="header-row">
+                    <td colspan="20">Target Production for FY 2025-2026: 110 Lakh Tonnes</td>
+                </tr>
+                <tr class="info-row">
+                    <td colspan="5">Date: <span id="sectionDate"></span></td>
+                    <td colspan="4"><span id="sectionMonth"></span></td>
+                    <td colspan="6"><span id="sectionYear"></span></td>
+                    <td colspan="5"><span id="sectionInception"></span></td>
+                </tr>
+            </thead>
+            <tbody>
+                <tr class="table-header">
+                    <td rowspan="2" class="highlight">Ntpc Talaipalli Coal Mining Project</td>
+                    <td colspan="4" class="daily-section">Daily</td>
+                    <td colspan="4" class="monthly-section">Monthly</td>
+                    <td colspan="6" class="yearly-section">Yearly</td>
+                    <td colspan="5" class="since-inception-section">Since Inception</td>
+                </tr>
+
+                <tr class="sub-header">
+                    <td class="daily-section">Asking Rate</td>
+                    <td class="daily-section">West Pit</td>
+                    <td class="daily-section">East Pit</td>
+                    <td class="daily-section">Total</td>
+                    <td class="monthly-section">Target</td>
+                    <td class="monthly-section">West Pit</td>
+                    <td class="monthly-section">East Pit</td>
+                    <td class="monthly-section">Total</td>
+                    <td class="yearly-section">Yearly Target</td>
+                    <td class="yearly-section">Progress Target</td>
+                    <td class="yearly-section">West Pit</td>
+                    <td class="yearly-section">South Pit Extension</td>
+                    <td class="yearly-section">East Pit</td>
+                    <td class="yearly-section">Total</td>
+                    <td class="since-inception-section">West Pit</td>
+                    <td class="since-inception-section">South Pit Extension</td>
+                    <td class="since-inception-section">East Pit</td>
+                    <td class="since-inception-section">South Pit</td>
+                    <td class="since-inception-section">Total</td>
+                </tr>
+                <tr class="data-row">
+                    <td class="highlight">Coal Production (Tonnes)</td>
+                    <td id="coalProductiondailyAsking" class="daily-section"></td>
+                    <td id="coalProductiondailyWest" class="daily-section"></td>
+                    <td id="coalProductiondailyEast" class="daily-section"></td>
+                    <td id="coalProductiondailyTotal" class="daily-section highlight"></td>
+                    <td id="coalProductionmonthlyTarget" class="monthly-section"></td>
+                    <td id="coalProductionmonthlyWest" class="monthly-section"></td>
+                    <td id="coalProductionmonthlyEast" class="monthly-section"></td>
+                    <td id="coalProductionmonthlyTotal" class="monthly-section highlight"></td>
+                    <td id="coalProductionyearlyTarget" class="yearly-section"></td>
+                    <td id="coalProductionprogressTarget" class="yearly-section"></td>
+                    <td id="coalProductionyearlyWest" class="yearly-section"></td>
+                    <td id="coalProductionyearlySouthExt" class="yearly-section"></td>
+                    <td id="coalProductionyearlyEast" class="yearly-section"></td>
+                    <td id="coalProductionyearlyTotal" class="yearly-section highlight"></td>
+                    <td id="coalProductionSinceInceptionWest" class="since-inception-section"></td>
+                    <td id="coalProductionSinceInceptionSouthExt" class="since-inception-section"></td>
+                    <td id="coalProductionSinceInceptionEast" class="since-inception-section"></td>
+                    <td id="coalProductionSinceInceptionSouth" class="since-inception-section"></td>
+                    <td id="coalProductionSinceInceptionTotal" class="since-inception-section highlight"></td>
+                </tr>
+                <tr class="data-row">
+                    <td class="highlight">Coal Dispatch(Tonnes)</td>
+                    <td id="coalDispatchdailyAsking" class="daily-section"></td>
+                    <td id="coalDispatchdailyWest" class="daily-section"></td>
+                    <td id="coalDispatchdailyEast" class="daily-section"></td>
+                    <td id="coalDispatchdailyTotal" class="daily-section highlight"></td>
+                    <td id="coalDispatchmonthlyTarget" class="monthly-section"></td>
+                    <td id="coalDispatchmonthlyWest" class="monthly-section"></td>
+                    <td id="coalDispatchmonthlyEast" class="monthly-section"></td>
+                    <td id="coalDispatchmonthlyTotal" class="monthly-section highlight"></td>
+                    <td id="coalDispatchyearlyTarget" class="yearly-section"></td>
+                    <td id="coalDispatchprogressTarget" class="yearly-section"></td>
+                    <td id="coalDispatchyearlyWest" class="yearly-section"></td>
+                    <td id="coalDispatchyearlySouthExt" class="yearly-section"></td>
+                    <td id="coalDispatchyearlyEast" class="yearly-section"></td>
+                    <td id="coalDispatchyearlyTotal" class="yearly-section highlight"></td>
+                    <td id="coalDispatchSinceInceptionWest" class="since-inception-section"></td>
+                    <td id="coalDispatchSinceInceptionSouthExt" class="since-inception-section"></td>
+                    <td id="coalDispatchSinceInceptionEast" class="since-inception-section"></td>
+                    <td id="coalDispatchSinceInceptionSouth" class="since-inception-section"></td>
+                    <td id="coalDispatchSinceInceptionTotal" class="since-inception-section highlight"></td>
+                </tr>
+                <tr class="data-row">
+                    <td class="highlight">OB Removed(Cubic Meter)</td>
+                    <td id="OBRemovaldailyAsking" class="daily-section"></td>
+                    <td id="OBRemovaldailyWest" class="daily-section"></td>
+                    <td id="OBRemovaldailyEast" class="daily-section"></td>
+                    <td id="OBRemovaldailyTotal" class="daily-section highlight"></td>
+                    <td id="OBRemovalmonthlyTarget" class="monthly-section"></td>
+                    <td id="OBRemovalmonthlyWest" class="monthly-section"></td>
+                    <td id="OBRemovalmonthlyEast" class="monthly-section"></td>
+                    <td id="OBRemovalmonthlyTotal" class="monthly-section highlight"></td>
+                    <td id="OBRemovalyearlyTarget" class="yearly-section"></td>
+                    <td id="OBRemovalprogressTarget" class="yearly-section"></td>
+                    <td id="OBRemovalyearlyWest" class="yearly-section"></td>
+                    <td id="OBRemovalyearlySouthExt" class="yearly-section"></td>
+                    <td id="OBRemovalyearlyEast" class="yearly-section"></td>
+                    <td id="OBRemovalyearlyTotal" class="yearly-section highlight"></td>
+                    <td id="OBRemovalSinceInceptionWest" class="since-inception-section"></td>
+                    <td id="OBRemovalSinceInceptionSouthExt" class="since-inception-section"></td>
+                    <td id="OBRemovalSinceInceptionEast" class="since-inception-section"></td>
+                    <td id="OBRemovalSinceInceptionSouth" class="since-inception-section"></td>
+                    <td id="OBRemovalSinceInceptionTotal" class="since-inception-section highlight"></td>
+                </tr>
+            </tbody>
+        </table>
+    </div>
+</div>
+
+<%- include("partials/footer") %>
+<script src="https://cdnjs.cloudflare.com/ajax/libs/xlsx/0.18.5/xlsx.full.min.js"></script>
+<script src="https://cdnjs.cloudflare.com/ajax/libs/html2pdf.js/0.10.1/html2pdf.bundle.min.js"></script>
+<script src="/assets/js/reports.js"></script>

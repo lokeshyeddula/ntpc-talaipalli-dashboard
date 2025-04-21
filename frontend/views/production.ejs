@@ -1,0 +1,78 @@
+<%- include("partials/header", { title: "Production", pageCSS: "production" }) %>
+<main class="content container-fluid py-4">
+    <div class="card-box">
+      <h5 class="mb-4">Production Entry</h5>
+      <form id="production-form-data">
+
+        <!-- Date, Pit, Shift -->
+        <div class="row g-3 mb-3">
+          <div class="col-md-4">
+            <label for="date" class="form-label">Date</label>
+            <input type="date" id="date" class="form-control" required />
+          </div>
+          <div class="col-md-4">
+            <label for="pitSelect" class="form-label">Pit</label>
+            <select id="pitSelect" class="form-select" required>
+              <option value="">Select Pit</option>
+              <option value="East Pit">East Pit</option>
+              <option value="West Pit">West Pit</option>
+            </select>
+          </div>
+          <div class="col-md-4">
+            <label for="shift" class="form-label">Shift</label>
+            <select id="shift" class="form-select" required>
+              <option value="">Select Shift</option>
+              <option value="A">Shift A</option>
+              <option value="B">Shift B</option>
+              <option value="C">Shift C</option>
+            </select>
+          </div>
+        </div>
+
+        <!-- Trip Entry Table -->
+        <div class="table-responsive mb-3">
+          <table class="table table-bordered" id="trip-table">
+            <thead class="table-light">
+              <tr>
+                <th>Material</th>
+                <th>Material Type</th>
+                <th>Vehicle Type</th>
+                <th>Destination</th>
+                <th>Trips</th>
+                <th>Action</th>
+              </tr>
+            </thead>
+            <tbody id="trip-body"></tbody>
+          </table>
+        </div>
+
+        <!-- Rainfall & Remarks -->
+        <div class="row g-3 mb-3">
+          <div class="col-md-6">
+            <label for="rainfall" class="form-label">Rainfall (mm)</label>
+            <input type="number" class="form-control" id="rainfall" placeholder="Enter rainfall in mm" min="0">
+          </div>
+          <div class="col-md-6">
+            <label for="remarks" class="form-label">Remarks</label>
+            <textarea class="form-control" id="remarks" rows="2" placeholder="Enter any remarks..."></textarea>
+          </div>
+        </div>
+
+        <!-- Total Production Metrics -->
+        <div class="row g-3 mb-4">
+          <div class="col-md-6">
+            <div class="p-3 bg-light rounded border">Coal Production: <strong id="total-coal">0</strong> Tons</div>
+          </div>
+          <div class="col-md-6">
+            <div class="p-3 bg-light rounded border">OB Quantity: <strong id="total-ob">0</strong> m³</div>
+          </div>
+        </div>
+
+        <!-- Submit Button -->
+        <button type="submit" class="btn btn-primary px-4">Submit</button>
+      </form>
+    </div>
+  </main>
+
+<%- include("partials/footer") %>
+<script src="assets/js/production.js"></script>
