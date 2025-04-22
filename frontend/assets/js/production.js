@@ -5,9 +5,10 @@ const OBTripFactors = {
     'Soft': { 'Scania': 16, 'Volvo': 16, 'BB': 16, 'Eicher': 13.7 },
     'Hard': { 'Scania': 18, 'Volvo': 18, 'BB': 16, 'Eicher': 14.4 }
 };
-document.getElementById('logoutBtn').addEventListener('click', function(event) {
+
+document.getElementById('logoutBtn').addEventListener('click', function (event) {
     event.preventDefault();
-    localStorage.removeItem('token'); 
+    localStorage.removeItem('token');
     window.location.href = '/';
 });
 
@@ -19,17 +20,35 @@ function preventBack() {
 }
 
 preventBack();
+
 document.addEventListener("DOMContentLoaded", function () {
     addTripRow();
 });
 
+function getTripFactor(material, materialType, vehicle) {
+    if (material === "Coal") {
+        return coalTripFactors[vehicle] || '';
+    } else if (material === "OB") {
+        return OBTripFactors[materialType]?.[vehicle] || '';
+    }
+    return '';
+}
+
+function updateTripFactor(element) {
+    let row = element.closest("tr");
+    let material = row.querySelector(".material").value;
+    let materialType = row.querySelector(".material_type")?.value;
+    let vehicle = row.querySelector(".vehicle").value;
+    let factor = getTripFactor(material, materialType, vehicle);
+    row.querySelector(".trip-factor").textContent = factor || '-';
+}
 
 function addTripRow(trip = {}) {
     let tableBody = document.getElementById("trip-body");
     let row = document.createElement("tr");
 
     row.innerHTML = `
-        <td> 
+        <td>
             <select class="material" onchange="updateRow(this)">
                 <option value="">Select Material</option>
                 <option value="Coal" ${trip.material === "Coal" ? "selected" : ""}>Coal</option>
@@ -37,14 +56,14 @@ function addTripRow(trip = {}) {
             </select>
         </td>
         <td>
-            <select class="material_type" style="display: ${trip.material === "OB" ? "block" : "none"};" onchange="calculateTotal()">
+            <select class="material_type" style="display: ${trip.material === "OB" ? "block" : "none"};" onchange="updateTripFactor(this); calculateTotal();">
                 <option value="">Select Material Type</option>
                 <option value="Hard" ${trip.materialType === "Hard" ? "selected" : ""}>Hard</option>
                 <option value="Soft" ${trip.materialType === "Soft" ? "selected" : ""}>Soft</option>
             </select>
         </td>
         <td>
-            <select class="vehicle" onchange="calculateTotal()">
+            <select class="vehicle" onchange="updateTripFactor(this); calculateTotal();">
                 <option value="">Select Vehicle</option>
                 <option value="Scania" ${trip.vehicle === "Scania" ? "selected" : ""}>Scania</option>
                 <option value="BB" ${trip.vehicle === "BB" ? "selected" : ""}>BB</option>
@@ -59,6 +78,7 @@ function addTripRow(trip = {}) {
             </select>
         </td>
         <td><input type="number" class="tripCount" value="${trip.tripCount || ''}" oninput="calculateTotal()"></td>
+        <td><span class="trip-factor">${getTripFactor(trip.material, trip.materialType, trip.vehicle) || '-'}</span></td>
         <td>
             <div class="action-buttons">
                 <button type="button" class="btn-add" onclick="addTripRow()">Add Trip</button>
@@ -69,19 +89,16 @@ function addTripRow(trip = {}) {
 
     tableBody.appendChild(row);
     let rows = tableBody.querySelectorAll('tr');
-   // let lastRow = rows[rows.length - 1];
-    
-    
+
     rows.forEach((r, index) => {
         if (index !== rows.length - 1) {
             let addButton = r.querySelector('.btn-add');
             if (addButton) {
-                addButton.remove(); 
+                addButton.remove();
             }
         }
     });
 }
-
 
 function deleteRow(button) {
     button.closest("tr").remove();
@@ -121,6 +138,7 @@ function updateRow(materialSelect) {
             : `<option value="Eicher">Eicher</option>`;
     }
 
+    updateTripFactor(materialSelect);
     calculateTotal();
 }
 
@@ -145,11 +163,9 @@ function calculateTotal() {
     document.getElementById("total-ob").textContent = totalOB;
 }
 
-
 document.getElementById("date").addEventListener("change", fetchExistingTrips);
 document.getElementById("pitSelect").addEventListener("change", fetchExistingTrips);
 document.getElementById("shift").addEventListener("change", fetchExistingTrips);
-
 
 async function fetchExistingTrips() {
     let date = document.getElementById("date").value;
@@ -180,14 +196,13 @@ async function fetchExistingTrips() {
     }
 }
 
-
 function populateTripTable(trips) {
     let tableBody = document.getElementById("trip-body");
     tableBody.innerHTML = "";
-
     trips.forEach(trip => addTripRow(trip));
     calculateTotal();
 }
+
 document.getElementById("production-form-data").addEventListener("submit", async function (event) {
     event.preventDefault();
 
@@ -214,7 +229,6 @@ document.getElementById("production-form-data").addEventListener("submit", async
         });
 
         let result = await response.json();
-        console.log("Server Response:", result);
 
         if (response.ok) {
             alert(result.message);
@@ -233,13 +247,12 @@ document.getElementById("production-form-data").addEventListener("submit", async
     }
 });
 
-
 const themeBtn = document.getElementById('themeToggle');
 if (themeBtn) {
-  themeBtn.addEventListener('click', () => {
-    document.body.classList.toggle('dark-mode');
-    const icon = themeBtn.querySelector('i');
-    icon.classList.toggle('fa-sun');
-    icon.classList.toggle('fa-moon');
-  });
+    themeBtn.addEventListener('click', () => {
+        document.body.classList.toggle('dark-mode');
+        const icon = themeBtn.querySelector('i');
+        icon.classList.toggle('fa-sun');
+        icon.classList.toggle('fa-moon');
+    });
 }

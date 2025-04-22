@@ -76,7 +76,7 @@ canvas {
 }
 
 
-.icon {  
+.icon {
   float: right;
   font-size:500%;
   position: absolute;
@@ -132,7 +132,7 @@ canvas {
   display: inline-block;
   padding: 1em;
   border-radius: 0.3em;
-  font-family: sans-serif;  
+  font-family: sans-serif;
   width: 240px;
   min-width: 180px;
   margin-left: 0.5em;
@@ -142,7 +142,7 @@ canvas {
 
 .card-value {
   display: block;
-  font-size: 200%;  
+  font-size: 200%;
   font-weight: bolder;
 }
 
@@ -151,4 +151,5 @@ canvas {
   font-size: 70%;
   padding-left: 0.2em;
 }
+
 

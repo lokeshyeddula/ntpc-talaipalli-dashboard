@@ -127,10 +127,10 @@ button {
     background-color: #f8bbd0 !important;
 }
 
-.highlight {
-    background-color: #ffeb3b;
+.highlight{
+    background-color: yellow !important;
     font-weight: bold;
-    color: #212529;
+    color: black !important;
 }
 .dark-mode {
     background-color: #1e1e2f;
