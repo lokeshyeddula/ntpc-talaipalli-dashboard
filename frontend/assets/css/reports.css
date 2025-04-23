@@ -93,8 +93,8 @@ button {
 }
 
 .header-row td {
-    background-color: #2e4f8a;
-    color: white;
+    background-color: #5F9EA0;
+    color: black;
     font-weight: bold;
 }
 
@@ -106,9 +106,9 @@ button {
     font-weight: bold;
 }
 .info-row td {
-    background-color:#2e4f8a ;
+    background-color:#5F9EA0 ;
     font-weight: bold;
-    color: white;
+    color: black;
 }
 
 .daily-section {
@@ -128,9 +128,9 @@ button {
 }
 
 .highlight {
-    background-color: #ffeb3b;
+    background-color: yellow !important;
     font-weight: bold;
-    color: #212529;
+    color: black;
 }
 .dark-mode {
     background-color: #1e1e2f;
