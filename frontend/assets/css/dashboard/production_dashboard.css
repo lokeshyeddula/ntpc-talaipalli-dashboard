@@ -1,24 +1,21 @@
+
 body {
-  background-color: rgb(181, 223, 216);
-  font-family: "Segoe UI", Tahoma, Geneva, Verdana, sans-serif;
-  color: #333;
+  background: linear-gradient(to right, #f5f7fa, #c3cfe2);
+  font-family: "Poppins", "Segoe UI", Tahoma, Geneva, Verdana, sans-serif;
+  color: #2c3e50;
+  box-sizing: border-box;
 }
 
-.pie-card {
-  background: #fff;
-  border-radius: 20px;
-  padding: 15px;
-  height: 260px;
+
+#container {
+  width: 100%;
+  max-width: 1200px;
   display: flex;
-  flex-direction: column;
-  justify-content: space-between;
-  align-items: center;
-  transition: 0.3s ease;
-}
-
-.pie-card canvas {
-  max-width: 120px;
-  max-height: 120px;
+  flex-wrap: wrap;
+  padding: 15px;
+  box-sizing: border-box;
+  overflow: hidden;
+  background-color: linear-gradient(to right, #f5f7fa, #c3cfe2);
 }
 
 .chart-title {
@@ -30,17 +27,17 @@ body {
 }
 
 .bar-chart-card {
-  background: #fff;
   border-radius: 20px;
   padding: 20px;
-  height: 550px;
+  height: 600px;
   display: flex;
   flex-direction: column;
   justify-content: flex-start;
-  overflow: scroll;
   position: relative;
+  box-shadow: 0 4px 6px rgba(0, 0, 0, 0.1);
+  width: 100%;
+  overflow: hidden;
 }
-
 
 .bar-chart-card .card-title {
   font-size: 16px;
@@ -59,42 +56,41 @@ body {
   padding: 6px 10px;
   font-size: 14px;
   margin-bottom: 10px;
+  border-radius: 4px;
+  border: 1px solid #ced4da;
 }
 
-/* Make canvas take full remaining height */
+
 #pit-wise-coal-bar-chart {
   flex-grow: 1;
   width: 100% !important;
   height: 100% !important;
   display: block;
+  background-color: #f8f9fa;
+  border-radius: 8px;
+  margin-top: 20px;
+  overflow: hidden;
 }
 
 
 canvas {
   display: block;
   box-sizing: border-box;
+  overflow: hidden;
 }
 
 
-.icon {  
+.icon {
   float: right;
-  font-size:500%;
+  font-size: 500%;
   position: absolute;
-  top:0rem;
-  right:-0.3rem;
-  opacity: .16;
+  top: 0rem;
+  right: -0.3rem;
+  opacity: 0.16;
 }
 
 
-#container
-{
-  width: 1200px;
-  display: flex;
-  padding: 15px;
-}
-
-.grey-dark
-{
+.grey-dark {
   background: #495057;
   color: #efefef;
 }
@@ -103,14 +99,13 @@ canvas {
   background: linear-gradient(180deg, rgba(207,82,82,1) 0%, rgba(121,9,9,1) 80%);
   color: #fff;
 }
+
 .red {
   background: #a83b3b;
   color: #fff;
 }
 
-
-.purple
-{
+.purple {
   background: #886ab5;
   color: #fff;
 }
@@ -119,20 +114,20 @@ canvas {
   background: #ffc241;
   color: #fff;
 }
-.green{
+
+.green {
   background-color: lightgreen;
-  color:#fff ;
+  color: #fff;
 }
 
-.kpi-card
-{
+.kpi-card {
   overflow: hidden;
   position: relative;
-  box-shadow: 1px 1px 3px rgba(0,0,0,0.75);;
+  box-shadow: 1px 1px 3px rgba(0, 0, 0, 0.75);
   display: inline-block;
   padding: 1em;
   border-radius: 0.3em;
-  font-family: sans-serif;  
+  font-family: sans-serif;
   width: 240px;
   min-width: 180px;
   margin-left: 0.5em;
@@ -142,13 +137,12 @@ canvas {
 
 .card-value {
   display: block;
-  font-size: 200%;  
+  font-size: 200%;
   font-weight: bolder;
 }
 
 .card-text {
-  display:block;
+  display: block;
   font-size: 70%;
   padding-left: 0.2em;
 }
-

@@ -1,7 +1,10 @@
-
+body {
+  background: linear-gradient(to right, #f5f7fa, #c3cfe2);
+  font-family: "Poppins", "Segoe UI", Tahoma, Geneva, Verdana, sans-serif;
+  color: #2c3e50;
+}
 #content {
     padding: 20px;
-    background:beige;
     min-height: 100vh;
     display: flex;
     justify-content: center;

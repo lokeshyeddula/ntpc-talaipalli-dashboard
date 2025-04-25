@@ -4,14 +4,14 @@ body {
   color: #333;
 }
 
-/* Carousel Customization */
+
 .custom-carousel img {
   height: 420px;
   object-fit: cover;
  
 }
 
-/* Card Box Styling */
+
 .card-box {
   background: white;
   border-radius: 16px;
@@ -27,7 +27,7 @@ body {
   margin-bottom: 10px;
 }
 
-/* KPI Metrics */
+
 .metric-box {
   background: white;
   border-radius: 16px;

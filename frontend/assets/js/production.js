@@ -1,35 +1,55 @@
 const apiUrl = "http://localhost:3000/production";
 
+// Trip Factors
 const coalTripFactors = { 'Scania': 32, 'BB': 36, 'Eicher': 32 };
 const OBTripFactors = {
     'Soft': { 'Scania': 16, 'Volvo': 16, 'BB': 16, 'Eicher': 13.7 },
     'Hard': { 'Scania': 18, 'Volvo': 18, 'BB': 16, 'Eicher': 14.4 }
 };
-document.getElementById('logoutBtn').addEventListener('click', function(event) {
-    event.preventDefault();
-    localStorage.removeItem('token'); 
+
+// Logout
+document.getElementById('logoutBtn')?.addEventListener('click', function (e) {
+    e.preventDefault();
+    localStorage.removeItem('token');
     window.location.href = '/';
 });
 
+// Prevent Back Button
 function preventBack() {
-    window.history.pushState(null, "", window.location.href);
-    window.addEventListener("popstate", function () {
-        window.history.pushState(null, "", window.location.href);
-    });
+    history.pushState(null, '', location.href);
+    window.addEventListener('popstate', () => history.pushState(null, '', location.href));
 }
-
 preventBack();
-document.addEventListener("DOMContentLoaded", function () {
+
+// On Load
+document.addEventListener('DOMContentLoaded', () => {
     addTripRow();
 });
 
+// Trip Factor Fetcher
+function getTripFactor(material, type, vehicle) {
+    return material === 'Coal'
+        ? coalTripFactors[vehicle] || ''
+        : OBTripFactors[type]?.[vehicle] || '';
+}
 
+// Update Trip Factor
+function updateTripFactor(el) {
+    const row = el.closest('tr');
+    const material = row.querySelector('.material').value;
+    const type = row.querySelector('.material_type')?.value;
+    const vehicle = row.querySelector('.vehicle').value;
+    const factor = getTripFactor(material, type, vehicle);
+    row.querySelector('.trip-factor').textContent = factor || '-';
+}
+
+// Add Trip Row
 function addTripRow(trip = {}) {
-    let tableBody = document.getElementById("trip-body");
-    let row = document.createElement("tr");
+    const tableBody = document.getElementById("trip-body");
+    const row = document.createElement("tr");
 
     row.innerHTML = `
-        <td> 
+        <td>
             <select class="material" onchange="updateRow(this)">
                 <option value="">Select Material</option>
                 <option value="Coal" ${trip.material === "Coal" ? "selected" : ""}>Coal</option>
@@ -37,14 +57,14 @@ function addTripRow(trip = {}) {
             </select>
         </td>
         <td>
-            <select class="material_type" style="display: ${trip.material === "OB" ? "block" : "none"};" onchange="calculateTotal()">
+            <select class="material_type" style="display: ${trip.material === "OB" ? "block" : "none"};" onchange="updateTripFactor(this); calculateTotal();">
                 <option value="">Select Material Type</option>
                 <option value="Hard" ${trip.materialType === "Hard" ? "selected" : ""}>Hard</option>
                 <option value="Soft" ${trip.materialType === "Soft" ? "selected" : ""}>Soft</option>
             </select>
         </td>
         <td>
-            <select class="vehicle" onchange="calculateTotal()">
+            <select class="vehicle" onchange="updateTripFactor(this); calculateTotal();">
                 <option value="">Select Vehicle</option>
                 <option value="Scania" ${trip.vehicle === "Scania" ? "selected" : ""}>Scania</option>
                 <option value="BB" ${trip.vehicle === "BB" ? "selected" : ""}>BB</option>
@@ -59,6 +79,7 @@ function addTripRow(trip = {}) {
             </select>
         </td>
         <td><input type="number" class="tripCount" value="${trip.tripCount || ''}" oninput="calculateTotal()"></td>
+        <td><span class="trip-factor">${getTripFactor(trip.material, trip.materialType, trip.vehicle) || '-'}</span></td>
         <td>
             <div class="action-buttons">
                 <button type="button" class="btn-add" onclick="addTripRow()">Add Trip</button>
@@ -68,52 +89,46 @@ function addTripRow(trip = {}) {
     `;
 
     tableBody.appendChild(row);
-    let rows = tableBody.querySelectorAll('tr');
-   // let lastRow = rows[rows.length - 1];
-    
-    
-    rows.forEach((r, index) => {
-        if (index !== rows.length - 1) {
-            let addButton = r.querySelector('.btn-add');
-            if (addButton) {
-                addButton.remove(); 
-            }
+
+    // Remove extra 'Add' buttons except last row
+    const rows = tableBody.querySelectorAll('tr');
+    rows.forEach((r, i) => {
+        if (i !== rows.length - 1) {
+            r.querySelector('.btn-add')?.remove();
         }
     });
 }
 
-
+// Delete Row
 function deleteRow(button) {
-    button.closest("tr").remove();
+    button.closest('tr').remove();
     calculateTotal();
 }
 
-function updateRow(materialSelect) {
-    let row = materialSelect.closest("tr");
-    let destinationField = row.querySelector(".destination");
-    let materialTypeField = row.querySelector(".material_type");
-    let vehicleSelect = row.querySelector(".vehicle");
+// Update Row on Material Change
+function updateRow(select) {
+    const row = select.closest('tr');
+    const destination = row.querySelector(".destination");
+    const materialType = row.querySelector(".material_type");
+    const vehicle = row.querySelector(".vehicle");
 
-    let selectedPit = document.getElementById("pitSelect").value;
+    const selectedPit = document.getElementById("pitSelect").value;
+    const isCoal = select.value === "Coal";
 
-    if (materialSelect.value === "Coal") {
-        destinationField.style.display = "block";
-        materialTypeField.style.display = "none";
+    destination.style.display = isCoal ? "block" : "none";
+    materialType.style.display = isCoal ? "none" : "block";
 
-        vehicleSelect.innerHTML = selectedPit === "East Pit"
+    if (isCoal) {
+        vehicle.innerHTML = selectedPit === "East Pit"
             ? `<option value="BB">BB</option>`
             : `<option value="Eicher">Eicher</option>`;
 
-        destinationField.innerHTML = selectedPit === "East Pit"
+        destination.innerHTML = selectedPit === "East Pit"
             ? `<option value="Mine to Stockyard">Mine to Stockyard</option>`
-            : `<option value="">Select Destination</option>
-               <option value="Mine to Wharfwall">Mine to Wharfwall</option>
+            : `<option value="Mine to Wharfwall">Mine to Wharfwall</option>
                <option value="Mine to Stockyard">Mine to Stockyard</option>`;
-    } else if (materialSelect.value === "OB") {
-        destinationField.style.display = "none";
-        materialTypeField.style.display = "block";
-
-        vehicleSelect.innerHTML = selectedPit === "East Pit"
+    } else {
+        vehicle.innerHTML = selectedPit === "East Pit"
             ? `<option value="">Select Vehicle</option>
                <option value="BB">BB</option>
                <option value="Scania">Scania</option>
@@ -121,23 +136,24 @@ function updateRow(materialSelect) {
             : `<option value="Eicher">Eicher</option>`;
     }
 
+    updateTripFactor(select);
     calculateTotal();
 }
 
+// Calculate Totals
 function calculateTotal() {
     let totalCoal = 0, totalOB = 0;
-    let rows = document.querySelectorAll("#trip-body tr");
 
-    rows.forEach(row => {
-        let material = row.querySelector(".material").value;
-        let materialType = row.querySelector(".material_type")?.value || "";
-        let vehicle = row.querySelector(".vehicle").value;
-        let tripCount = parseInt(row.querySelector(".tripCount").value) || 0;
+    document.querySelectorAll("#trip-body tr").forEach(row => {
+        const material = row.querySelector(".material").value;
+        const type = row.querySelector(".material_type")?.value || "";
+        const vehicle = row.querySelector(".vehicle").value;
+        const trips = parseInt(row.querySelector(".tripCount").value) || 0;
 
-        if (material === "Coal" && coalTripFactors[vehicle]) {
-            totalCoal += tripCount * coalTripFactors[vehicle];
-        } else if (material === "OB" && OBTripFactors[materialType]?.[vehicle]) {
-            totalOB += tripCount * OBTripFactors[materialType][vehicle];
+        if (material === "Coal") {
+            totalCoal += trips * (coalTripFactors[vehicle] || 0);
+        } else if (material === "OB") {
+            totalOB += trips * (OBTripFactors[type]?.[vehicle] || 0);
         }
     });
 
@@ -145,28 +161,25 @@ function calculateTotal() {
     document.getElementById("total-ob").textContent = totalOB;
 }
 
-
-document.getElementById("date").addEventListener("change", fetchExistingTrips);
-document.getElementById("pitSelect").addEventListener("change", fetchExistingTrips);
-document.getElementById("shift").addEventListener("change", fetchExistingTrips);
-
+// Fetch Existing Data
+["date", "pitSelect", "shift"].forEach(id =>
+    document.getElementById(id)?.addEventListener("change", fetchExistingTrips)
+);
 
 async function fetchExistingTrips() {
-    let date = document.getElementById("date").value;
-    let pit = document.getElementById("pitSelect").value;
-    let shift = document.getElementById("shift").value;
+    const date = document.getElementById("date").value;
+    const pit = document.getElementById("pitSelect").value;
+    const shift = document.getElementById("shift").value;
 
     if (!date || !pit || !shift) return;
 
     try {
-        let response = await fetch(`${apiUrl}/fetch?date=${date}&pit=${pit}&shift=${shift}`, {
-            headers: { "Accept": "application/json" }
-        });
+        const res = await fetch(`${apiUrl}/fetch?date=${date}&pit=${pit}&shift=${shift}`);
+        const data = await res.json();
 
-        let data = await response.json();
         document.getElementById("trip-body").innerHTML = "";
 
-        if (data.trips.length > 0) {
+        if (data.trips?.length) {
             populateTripTable(data.trips);
         } else {
             addTripRow();
@@ -175,28 +188,28 @@ async function fetchExistingTrips() {
         document.getElementById("total-coal").textContent = data.totalCoal || "0";
         document.getElementById("total-ob").textContent = data.totalOB || "0";
 
-    } catch (error) {
-        console.error("Error fetching existing trips:", error);
+    } catch (err) {
+        console.error("Error fetching trips:", err);
     }
 }
 
-
+// Populate Trips
 function populateTripTable(trips) {
-    let tableBody = document.getElementById("trip-body");
-    tableBody.innerHTML = "";
-
+    document.getElementById("trip-body").innerHTML = "";
     trips.forEach(trip => addTripRow(trip));
     calculateTotal();
 }
-document.getElementById("production-form-data").addEventListener("submit", async function (event) {
-    event.preventDefault();
+
+// Submit Form
+document.getElementById("production-form-data")?.addEventListener("submit", async function (e) {
+    e.preventDefault();
 
     const payload = {
         date: document.getElementById("date").value,
         pit: document.getElementById("pitSelect").value,
         shift: document.getElementById("shift").value,
-        rainfall: document.getElementById('rainfall')?.value || null,
-        remarks: document.getElementById('remarks')?.value || "",
+        rainfall: document.getElementById("rainfall")?.value || null,
+        remarks: document.getElementById("remarks")?.value || "",
         trips: Array.from(document.querySelectorAll("#trip-body tr")).map(row => ({
             material: row.querySelector(".material").value,
             materialType: row.querySelector(".material_type")?.value || "",
@@ -207,39 +220,31 @@ document.getElementById("production-form-data").addEventListener("submit", async
     };
 
     try {
-        let response = await fetch(apiUrl, {
+        const res = await fetch(apiUrl, {
             method: "POST",
             headers: { "Content-Type": "application/json" },
             body: JSON.stringify(payload)
         });
 
-        let result = await response.json();
-        console.log("Server Response:", result);
-
-        if (response.ok) {
-            alert(result.message);
-        } else {
-            alert("Error: " + (result.message || "Something went wrong"));
-        }
+        const result = await res.json();
+        alert(res.ok ? result.message : "Error: " + (result.message || "Something went wrong"));
 
         document.getElementById("production-form-data").reset();
         document.getElementById("trip-body").innerHTML = "";
         document.getElementById("total-coal").textContent = "0";
         document.getElementById("total-ob").textContent = "0";
+
         setTimeout(() => location.reload(), 500);
-    } catch (error) {
+    } catch (err) {
         alert("Error submitting production data.");
-        console.error("Error:", error);
+        console.error("Error:", err);
     }
 });
 
-
-const themeBtn = document.getElementById('themeToggle');
-if (themeBtn) {
-  themeBtn.addEventListener('click', () => {
+// Theme Toggle
+document.getElementById('themeToggle')?.addEventListener('click', () => {
     document.body.classList.toggle('dark-mode');
-    const icon = themeBtn.querySelector('i');
+    const icon = document.querySelector('#themeToggle i');
     icon.classList.toggle('fa-sun');
     icon.classList.toggle('fa-moon');
-  });
-}
+});
