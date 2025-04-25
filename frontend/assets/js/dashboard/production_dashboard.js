@@ -1,34 +1,19 @@
-function preventBack() {
-    window.history.pushState(null, "", window.location.href);
-    window.addEventListener("popstate", function () {
-        window.history.pushState(null, "", window.location.href);
-    });
-}
-
-preventBack();
-
 document.addEventListener("DOMContentLoaded", async () => {
     try {
         const response = await fetch("/dashboard/production-data");
         if (!response.ok) throw new Error("Failed to fetch production data.");
         const data = await response.json();
 
-        console.log("Production Data:", data);
-        const StrippingRatioSinceInception=data.inception_ob/data.inception_coal;
+        const StrippingRatioSinceInception = data.inception_ob / data.inception_coal;
 
         document.getElementById("coal-yearly-kpi-card").textContent = Math.round(data.yearly_coal) + " Tons";
         document.getElementById("ob-yearly-kpi-card").textContent = Math.round(data.yearly_ob) + " m³";
         document.getElementById("coal-since-inception-kpi-card").textContent = (data.inception_coal / 1e6).toFixed(2) + " M Tons";
         document.getElementById("ob-since-inception-kpi-card").textContent = (data.inception_ob / 1e6).toFixed(2) + " Mm³";
-
         document.getElementById("StrippingRatio-since-inception-kpi-card").textContent = StrippingRatioSinceInception.toFixed(2);
-
-
 
         const pitWiseCanvas = document.getElementById("pit-wise-coal-bar-chart");
         const pitWiseCtx = pitWiseCanvas?.getContext("2d");
-
-        // Set canvas size based on container
         if (pitWiseCanvas) {
             pitWiseCanvas.width = pitWiseCanvas.offsetWidth;
             pitWiseCanvas.height = pitWiseCanvas.offsetHeight;
@@ -41,7 +26,7 @@ document.addEventListener("DOMContentLoaded", async () => {
 
             let barChart;
 
-            const updateChart = (selectedYear) => {
+            const updatePitWiseChart = (selectedYear) => {
                 const filteredYears = selectedYear ? [selectedYear] : financialYears;
 
                 const datasets = pits.map((pitName, index) => ({
@@ -66,26 +51,15 @@ document.addEventListener("DOMContentLoaded", async () => {
                         responsive: true,
                         maintainAspectRatio: false,
                         scales: {
-                            x: {
-                                title: { display: true, text: "Financial Year" },
-                                grid: { display: false },
-                                barPercentage: 0.8,
-                                categoryPercentage: 0.6
-                            },
-                            y: {
-                                beginAtZero: true,
-                                title: { display: true, text: "Total Coal Production (M Tons)" },
-                                grid: { display: false }
-                            }
+                            x: { title: { display: true, text: "Financial Year" }, grid: { display: false }, barPercentage: 0.8, categoryPercentage: 0.6 },
+                            y: { beginAtZero: true, title: { display: true, text: "Total Coal Production (M Tons)" }, grid: { display: false } }
                         },
-                        plugins: {
-                            legend: { position: 'top' }
-                        }
+                        plugins: { legend: { position: 'top' } }
                     }
                 });
             };
 
-            updateChart();
+            updatePitWiseChart();
 
             const selectElement = document.getElementById("financial-year-select");
             financialYears.forEach(year => {
@@ -96,22 +70,92 @@ document.addEventListener("DOMContentLoaded", async () => {
             });
 
             selectElement.addEventListener("change", (event) => {
-                updateChart(event.target.value);
+                updatePitWiseChart(event.target.value);
             });
 
-            // Optional: resize handler
             window.addEventListener('resize', () => {
                 if (barChart) barChart.resize();
             });
-        } else {
-            console.warn("No pit-wise coal data available.");
         }
+
+        const monthlyCoalObCanvas = document.getElementById("monthly-coal-ob-line-chart");
+        const monthlyCoalObCtx = monthlyCoalObCanvas?.getContext("2d");
+
+        if (monthlyCoalObCanvas) {
+            monthlyCoalObCanvas.width = monthlyCoalObCanvas.offsetWidth;
+            monthlyCoalObCanvas.height = monthlyCoalObCanvas.offsetHeight;
+        }
+
+        if (data.monthlyCoalOB && monthlyCoalObCtx) {
+            const MonthlyCoalOBfinancialYears = [...new Set(data.monthlyCoalOB.map(entry => entry.financial_year))];
+
+            const months = ["April", "May", "June", "July", "August", "September", "October", "November", "December", "January", "February", "March"];
+
+            let lineChart;
+
+            const updateMonthlyCoalObChart = (selectedYear) => {
+                const filteredData = selectedYear
+                    ? data.monthlyCoalOB.filter(entry => entry.financial_year === selectedYear)
+                    : data.monthlyCoalOB;
+                console.log("filtered data is "+filteredData)
+                const coalData = months.map((month, index) => {
+                           const correctedMonthNumber = (index + 1) % 12 + 1; // Correct the month number from 1-12
+                           const entry = filteredData.find(d => d.month_number === correctedMonthNumber);
+                           return entry ? entry.monthly_total_coal : 0;
+                       });
+
+                       const obData = months.map((month, index) => {
+                           const correctedMonthNumber = (index + 1) % 12 + 1; // Correct the month number from 1-12
+                           const entry = filteredData.find(d => d.month_number === correctedMonthNumber);
+                           return entry ? entry.monthly_total_ob : 0;
+                       });
+
+                       console.log("coal data"+coalData)
+                       console.log("ob data is"+obData)
+
+                if (lineChart) lineChart.destroy();
+
+                lineChart = new Chart(monthlyCoalObCtx, {
+                    type: 'line',
+                    data: {
+                        labels: months,
+                        datasets: [
+                            { label: 'Coal Production (M Tons)', data: coalData, borderColor: '#FF5733', fill: false },
+                            { label: 'OB Production (Mm³)', data: obData, borderColor: '#33FF57', fill: false }
+                        ]
+                    },
+                    options: {
+                        responsive: true,
+                        maintainAspectRatio: false,
+                        scales: {
+                            x: { title: { display: true, text: "Month" } },
+                            y: { beginAtZero: true, title: { display: true, text: "Production" } }
+                        },
+                        plugins: { legend: { position: 'top' },tooltip: {enabled: true} }
+                    }
+                });
+            };
+
+            updateMonthlyCoalObChart(MonthlyCoalOBfinancialYears[4]);
+
+            const selectElementLine = document.getElementById("financial-year-line-select");
+            MonthlyCoalOBfinancialYears.forEach(year => {
+                const option = document.createElement("option");
+                option.value = year;
+                option.textContent = year;
+                selectElementLine.appendChild(option);
+            });
+
+            selectElementLine.addEventListener("change", (event) => {
+                updateMonthlyCoalObChart(event.target.value);
+            });
+        }
+
     } catch (error) {
         console.error("Error loading chart data:", error);
     }
 });
 
-// Dark mode toggle
 const themeBtn = document.getElementById('themeToggle');
 if (themeBtn) {
     themeBtn.addEventListener('click', () => {
