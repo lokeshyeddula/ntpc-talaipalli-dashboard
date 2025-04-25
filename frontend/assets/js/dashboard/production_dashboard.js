@@ -14,53 +14,16 @@ document.addEventListener("DOMContentLoaded", async () => {
         const data = await response.json();
 
         console.log("Production Data:", data);
-        const StrippinRatioSinceInception=data.inception_ob/data.inception_coal;
+        const StrippingRatioSinceInception=data.inception_ob/data.inception_coal;
 
         document.getElementById("coal-yearly-kpi-card").textContent = Math.round(data.yearly_coal) + " Tons";
         document.getElementById("ob-yearly-kpi-card").textContent = Math.round(data.yearly_ob) + " m³";
         document.getElementById("coal-since-inception-kpi-card").textContent = (data.inception_coal / 1e6).toFixed(2) + " M Tons";
         document.getElementById("ob-since-inception-kpi-card").textContent = (data.inception_ob / 1e6).toFixed(2) + " Mm³";
 
-        document.getElementById("StrippingRatio-since-inception-kpi-card").textContent = StrippinRatioSinceInception.toFixed(2);
-        
-        
-        const labels = ["Coal", "Overburden (OB)"];
-        const colorSchemes = {
-            monthly: ["#17a2b8", "#e83e8c"],
-            yearly: ["#28a745", "#ffc107"],
-            inception: ["#6f42c1", "#fd7e14"]
-        };
+        document.getElementById("StrippingRatio-since-inception-kpi-card").textContent = StrippingRatioSinceInception.toFixed(2);
 
-        const createDoughnutChart = (ctx, coalValue, obValue, colors) => {
-            if (!ctx) return;
-            new Chart(ctx, {
-                type: 'doughnut',
-                data: {
-                    labels,
-                    datasets: [{
-                        data: [coalValue, obValue],
-                        backgroundColor: colors,
-                        borderWidth: 1
-                    }]
-                },
-                options: {
-                    responsive: true,
-                    maintainAspectRatio: false,
-                    cutout: "80%",
-                    plugins: {
-                        legend: { position: 'bottom' }
-                    }
-                }
-            });
-        };
 
-        const monthlyCtx = document.getElementById("monthly-coal-ob-pie-chart")?.getContext("2d");
-        const yearlyCtx = document.getElementById("yearly-coal-ob-pie-chart")?.getContext("2d");
-        const inceptionCtx = document.getElementById("since-inception-coal-ob-pie-chart")?.getContext("2d");
-
-        createDoughnutChart(monthlyCtx, data.monthly_coal, data.monthly_ob, colorSchemes.monthly);
-        createDoughnutChart(yearlyCtx, data.yearly_coal / 1e6, data.yearly_ob / 1e6, colorSchemes.yearly);
-        createDoughnutChart(inceptionCtx, data.inception_coal / 1e6, data.inception_ob / 1e6, colorSchemes.inception);
 
         const pitWiseCanvas = document.getElementById("pit-wise-coal-bar-chart");
         const pitWiseCtx = pitWiseCanvas?.getContext("2d");
@@ -183,13 +146,13 @@ var arc = d3.svg
   .outerRadius(outerRadius)
   .startAngle(0)
   .endAngle(Math.PI);
- 
+
 var arcLine = d3.svg
   .arc()
   .innerRadius(innerRadius)
   .outerRadius(outerRadius)
   .startAngle(0);
- 
+
 var svg = d3
   .select("#loyalty")
   .append("svg")
@@ -202,7 +165,7 @@ var svg = d3
   .attr({
     transform: "translate(" + w / 2 + "," + h / 2 + ")"
   });
- 
+
 var path = svg
   .append("path")
   .attr({
@@ -212,7 +175,7 @@ var path = svg
   .style({
     fill: color[0]
   });
- 
+
 var pathForeground = svg
   .append("path")
   .datum({ endAngle: 0 })
@@ -225,7 +188,7 @@ var pathForeground = svg
       return color[1];
     }
   });
- 
+
 var middleCount = svg
   .append("text")
   .datum(0)
@@ -242,24 +205,24 @@ var middleCount = svg
     fill: d3.rgb("#000000"),
     "font-size": "36px"
   });
- 
+
 var oldValue = 0;
 var arcTween = function(transition, newValue, oldValue) {
-  
+
   transition.attrTween("d", function(d) {
     var interpolate = d3.interpolate(d.endAngle, Math.PI * (newValue / 100));
     var interpolateCount = d3.interpolate(oldValue, newValue);
- 
+
     return function(t) {
       d.endAngle = interpolate(t);
       // change percentage to points before rendering text
       middleCount.text(Math.floor(interpolateCount(t)/100*maxPoints));
- 
+
       return arcLine(d);
     };
   });
 };
- 
+
 pathForeground
   .transition()
   .duration(750)

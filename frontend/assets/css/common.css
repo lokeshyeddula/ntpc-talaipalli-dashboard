@@ -4,7 +4,11 @@ body {
   color: #2c3e50;
   box-sizing: border-box;
 }
-
+.footer{
+background: linear-gradient(to right, #f5f7fa, #c3cfe2);
+color: #2c3e50;
+border-radius:5px;
+}
 .navbar {
   background-color: #174674;  
   box-shadow: 0 4px 10px rgba(0, 0, 0, 0.1);

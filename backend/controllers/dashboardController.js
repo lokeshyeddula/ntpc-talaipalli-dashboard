@@ -60,10 +60,44 @@ FROM production;
             GROUP BY financial_year, pit
             ORDER BY financial_year, pit;
         `);
+        const [monthlyCoalOBResults] = await sequelize.query(`
+                   SELECT
+                       CASE
+                           WHEN MONTH(production_date) >= 4 THEN
+                               CONCAT('FY ', RIGHT(YEAR(production_date), 2), '-', RIGHT(YEAR(production_date) + 1, 2))
+                           ELSE
+                               CONCAT('FY ', RIGHT(YEAR(production_date) - 1, 2), '-', RIGHT(YEAR(production_date), 2))
+                       END AS financial_year,
+
+                       MONTH(production_date) AS month_number,
+
+                       DATE_FORMAT(production_date, '%M') AS month_name,
+
+                       SUM(totalcoal) AS monthly_total_coal,
+                       SUM(totalob) AS monthly_total_ob
+
+                   FROM production
+
+                   GROUP BY financial_year,
+                            CASE
+                                WHEN MONTH(production_date) >= 4 THEN MONTH(production_date)
+                                ELSE MONTH(production_date) + 12
+                            END,
+                            month_number, month_name
+
+                   ORDER BY financial_year,
+                            CASE
+                                WHEN MONTH(production_date) >= 4 THEN MONTH(production_date)
+                                ELSE MONTH(production_date) + 12
+                            END;
+
+                `);
+
 
         res.json({
             ...productionResults[0],
-            pitWiseCoal: pitWiseYearlyCoalSinceInceptionResults
+            pitWiseCoal: pitWiseYearlyCoalSinceInceptionResults,
+            monthlyCoalOB:monthlyCoalOBResults
         });
     } catch (error) {
         console.error("Error fetching production data:", error.message);
