@@ -1,7 +1,7 @@
 const { Sequelize } = require('sequelize');
 
-const sequelize = new Sequelize('metrics_dashboard', 'root', 'Nothing@4679', {
-    host: 'localhost',
+const sequelize = new Sequelize('bokbhxclupouxzvunpu1', 'uav3u2vxcgscuzwv', 'uav3u2vxcgscuzwv', {
+    host: 'bokbhxclupouxzvunpu1-mysql.services.clever-cloud.com',
     dialect: 'mysql',
     logging: false
 });
