@@ -1,9 +1,25 @@
 const sequelize = require('../database');
+const { fetchGoogleSheetData } = require('../models/dashboardModel');
 
 exports.getProductionDashboardPage = async (req, res) => {
 res.render("dashboard/production_dashboard", {title: "Production Dashboard"});
 }
+exports.getSafetyDashboardPage = async (req, res) => {
+res.render("dashboard/safety_dashboard", {title: "Safety Dashboard"});
+}
+exports.getSafetyDashboardData = async (req, res) => {
+    try {
+        const googleSheetData = await fetchGoogleSheetData();
 
+        res.json({
+            googleSheetData: googleSheetData
+        });
+
+    } catch (error) {
+        console.error("Error fetching safety dashboard data:", error.message);
+        res.status(500).json({ error: "Internal Server Error", details: error.message });
+    }
+};
 exports.getProductionDashboard = async (req, res) => {
     try {
         const [productionResults] = await sequelize.query(`
