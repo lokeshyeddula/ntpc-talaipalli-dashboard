@@ -55,13 +55,17 @@ textarea {
   margin-top: 1.5rem;
 }
 
+#trip-table thead tr {
+  background-color: #f4a460 !important;
+  color: white;
+}
 table {
   width: 100%;
   border-collapse: collapse;
 }
 
 thead {
-  background: linear-gradient(to right, #1f6feb, #2980b9);
+  background: red;
   color: #fff;
 }
 

@@ -75,7 +75,7 @@ async function fetchReports(selectedDate) {
         document.getElementById('sectionDate').textContent = formattedDate;
         document.getElementById('sectionMonth').textContent = ` ${monthName}`;
         document.getElementById('sectionYear').textContent = year;
-        document.getElementById('sectionInception').textContent = 'Since Inception';
+        document.getElementById('sectionInception').textContent = '';
 
 
         //for DPR Coal Production

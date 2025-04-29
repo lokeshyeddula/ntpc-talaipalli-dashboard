@@ -70,7 +70,7 @@ body {
   width: 100% !important;
   height: 100% !important;
   display: block;
-  background-color: #f8f9fa;
+ background-color: linear-gradient(to right, #f5f7fa, #c3cfe2);
   border-radius: 8px;
   margin-top: 20px;
   overflow: hidden;
@@ -149,4 +149,19 @@ canvas {
   display: block;
   font-size: 70%;
   padding-left: 0.2em;
+}
+
+.line-chart-card .form-label {
+  font-size: 14px;
+  margin-bottom: 8px;
+}
+
+.line-chart-card .form-select {
+  max-width: 250px;
+  padding: 6px 10px;
+  font-size: 14px;
+  margin-bottom: 10px;
+  border-radius: 4px;
+  border: 1px solid #ced4da;
+ background-color: linear-gradient(to right, #f5f7fa, #c3cfe2);
 }

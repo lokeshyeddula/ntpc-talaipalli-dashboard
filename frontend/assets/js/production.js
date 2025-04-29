@@ -1,4 +1,4 @@
-const apiUrl = "http://localhost:3000/production";
+const apiUrl = " /production";
 
 // Trip Factors
 const coalTripFactors = { 'Scania': 32, 'BB': 36, 'Eicher': 32 };
