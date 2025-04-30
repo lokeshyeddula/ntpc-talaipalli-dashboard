@@ -1,14 +1,10 @@
-
 body {
   background: linear-gradient(to right, #f5f7fa, #c3cfe2);
   font-family: "Poppins", "Segoe UI", Tahoma, Geneva, Verdana, sans-serif;
   color: #2c3e50;
   box-sizing: border-box;
-}
-
-#monthly-coal-ob-line-chart {
-  width: 100% !important;
-  height: 400px !important;
+  margin: 0;
+  padding: 0;
 }
 
 #container {
@@ -18,72 +14,60 @@ body {
   flex-wrap: wrap;
   padding: 15px;
   box-sizing: border-box;
-  overflow: hidden;
-  background-color: linear-gradient(to right, #f5f7fa, #c3cfe2);
-  justify-content:space-evenly;
+  justify-content: space-evenly;
 }
 
-.chart-title {
-  font-size: 14px;
-  font-weight: 600;
-  text-align: center;
-  color: #333;
-  margin-bottom: 8px;
+canvas {
+  display: block;
+  width: 100% !important;
+  height: auto !important;
+  max-height: 400px;
+  box-sizing: border-box;
 }
 
-.bar-chart-card {
+.bar-chart-card,
+.line-chart-card {
   border-radius: 20px;
   padding: 20px;
-  height: 600px;
-  display: flex;
-  flex-direction: column;
-  justify-content: flex-start;
-  position: relative;
   box-shadow: 0 4px 6px rgba(0, 0, 0, 0.1);
   width: 100%;
-  overflow: hidden;
+  background-color: white;
+  overflow-x: auto;
 }
 
-.bar-chart-card .card-title {
+.card-title {
   font-size: 16px;
   font-weight: 600;
   margin-bottom: 12px;
   color: #333;
 }
 
-.bar-chart-card .form-label {
+.form-label {
   font-size: 14px;
   margin-bottom: 8px;
+  color: #34495e;
 }
 
-.bar-chart-card .form-select {
-  max-width: 250px;
+.form-select {
+  max-width: 100%;
+  width: 250px;
   padding: 6px 10px;
   font-size: 14px;
   margin-bottom: 10px;
   border-radius: 4px;
   border: 1px solid #ced4da;
+  background: linear-gradient(to right, #f5f7fa, #c3cfe2);
 }
 
-
-#pit-wise-coal-bar-chart {
-  flex-grow: 1;
-  width: 100% !important;
-  height: 100% !important;
-  display: block;
- background-color: linear-gradient(to right, #f5f7fa, #c3cfe2);
-  border-radius: 8px;
+#pit-wise-coal-bar-chart,
+#monthly-coal-ob-line-chart {
   margin-top: 20px;
-  overflow: hidden;
+  width: 100% !important;
+  height: auto !important;
+  max-height: 400px;
+  background-color: transparent;
+  border-radius: 8px;
 }
-
-
-canvas {
-  display: block;
-  box-sizing: border-box;
-  overflow: hidden;
-}
-
 
 .icon {
   float: right;
@@ -94,14 +78,13 @@ canvas {
   opacity: 0.16;
 }
 
-
 .grey-dark {
   background: #495057;
   color: #efefef;
 }
 
 .red-gradient {
-  background: linear-gradient(180deg, rgba(207,82,82,1) 0%, rgba(121,9,9,1) 80%);
+  background: linear-gradient(180deg, rgba(207, 82, 82, 1) 0%, rgba(121, 9, 9, 1) 80%);
   color: #fff;
 }
 
@@ -132,13 +115,12 @@ canvas {
   display: inline-block;
   padding: 1em;
   border-radius: 0.3em;
-  font-family: sans-serif;
   width: 200px;
   min-width: 180px;
   margin-left: 0.5em;
   margin-top: 0.5em;
   padding: 8px;
-
+  font-family: sans-serif;
 }
 
 .card-value {
@@ -153,17 +135,18 @@ canvas {
   padding-left: 0.2em;
 }
 
-.line-chart-card .form-label {
-  font-size: 14px;
-  margin-bottom: 8px;
-}
+@media (max-width: 768px) {
+  .form-select {
+    width: 100%;
+  }
 
-.line-chart-card .form-select {
-  max-width: 250px;
-  padding: 6px 10px;
-  font-size: 14px;
-  margin-bottom: 10px;
-  border-radius: 4px;
-  border: 1px solid #ced4da;
- background-color: linear-gradient(to right, #f5f7fa, #c3cfe2);
+  .bar-chart-card,
+  .line-chart-card {
+    padding: 15px;
+  }
+
+  #pit-wise-coal-bar-chart,
+  #monthly-coal-ob-line-chart {
+    max-height: 300px;
+  }
 }
