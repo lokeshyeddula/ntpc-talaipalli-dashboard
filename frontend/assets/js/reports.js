@@ -186,7 +186,7 @@ function downloadPDF() {
     container.style.minHeight = "297mm";
     container.appendChild(tableClone);
 
-   
+
     document.body.appendChild(container);
 
     const opt = {
@@ -194,7 +194,7 @@ function downloadPDF() {
         filename: `DPR_Report_${selectedDate}.pdf`,
         image: { type: 'jpeg', quality: 1 },
         html2canvas: {
-            scale: 3, 
+            scale: 3,
             useCORS: true,
             scrollY: 0,
             scrollX: 0

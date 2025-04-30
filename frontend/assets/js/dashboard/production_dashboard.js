@@ -11,7 +11,7 @@ document.addEventListener("DOMContentLoaded", async () => {
             inception_ob,
             pitWiseCoal,
             monthlyCoalOB,
-            pitWiseCoalSinceIncepetion
+            pitWiseCoalSinceInception
         } = data;
 
         document.getElementById("coal-yearly-kpi-card").textContent = Math.round(yearly_coal) + " Tons";
@@ -27,9 +27,9 @@ document.addEventListener("DOMContentLoaded", async () => {
             pieCanvas.height = pieCanvas.offsetHeight;
         }
 
-        if (pitWiseCoalSinceIncepetion && pieCtx) {
-            const labels = pitWiseCoalSinceIncepetion.map(item => item.pit);
-            const values = pitWiseCoalSinceIncepetion.map(item => item.pit_wise_total_coal);
+        if (pitWiseCoalSinceInception && pieCtx) {
+            const labels = pitWiseCoalSinceInception.map(item => item.pit);
+            const values = pitWiseCoalSinceInception.map(item => item.pit_wise_total_coal);
             const backgroundColors = ['#4E79A7', '#F28E2B', '#E15759', '#76B7B2'];
 
 
@@ -62,6 +62,84 @@ document.addEventListener("DOMContentLoaded", async () => {
                 }
             });
         }
+const yearlyCoalObCanvas = document.getElementById("yearly-coal-ob-line-chart");
+const yearlyCoalObCtx = yearlyCoalObCanvas?.getContext("2d");
+if (yearlyCoalObCanvas) {
+    yearlyCoalObCanvas.width = yearlyCoalObCanvas.offsetWidth;
+    yearlyCoalObCanvas.height = yearlyCoalObCanvas.offsetHeight;
+}
+
+if (pitWiseCoal && yearlyCoalObCtx) {
+    const yearlyDataMap = {};
+
+    pitWiseCoal.forEach(item => {
+        const year = item.financial_year;
+        if (!yearlyDataMap[year]) {
+            yearlyDataMap[year] = { coal: 0, ob: 0 };
+        }
+        yearlyDataMap[year].coal += item.yearly_total_coal;
+        yearlyDataMap[year].ob += item.yearly_total_ob;
+    });
+
+    const sortedYears = Object.keys(yearlyDataMap).sort();
+
+    const coalData = sortedYears.map(year => +(yearlyDataMap[year].coal / 1e6).toFixed(2));
+    const obData = sortedYears.map(year => +(yearlyDataMap[year].ob / 1e6).toFixed(2));
+
+    new Chart(yearlyCoalObCtx, {
+        type: 'line',
+        data: {
+            labels: sortedYears,
+            datasets: [
+                {
+                    label: 'Total Coal (M Tons)',
+                    data: coalData,
+                    borderColor: '#FF5733',
+                    backgroundColor: 'rgba(255, 87, 51, 0.1)',
+                    tension: 0.4,
+                    pointRadius: 5,
+                    pointHoverRadius: 7
+                },
+                {
+                    label: 'Total OB (Mm³)',
+                    data: obData,
+                    borderColor: '#33A1FF',
+                    backgroundColor: 'rgba(51, 161, 255, 0.1)',
+                    tension: 0.4,
+                    pointRadius: 5,
+                    pointHoverRadius: 7
+                }
+            ]
+        },
+        options: {
+            responsive: true,
+            maintainAspectRatio: false,
+          scales: {
+              x: {
+                  title: { display: true, text: "Financial Year" },
+                  grid: { display: false }
+              },
+              y: {
+                  beginAtZero: true,
+                  title: { display: true, text: "Total Coal Production (M Tons)" },
+                  grid: { display: false }
+              }
+          }
+,
+            plugins: {
+                legend: { position: 'top' },
+                tooltip: {
+                    mode: 'index',
+                    intersect: false
+                }
+            },
+            animation: {
+                duration: 800,
+                easing: 'easeOutQuart'
+            }
+        }
+    });
+}
 
         const pitWiseCanvas = document.getElementById("pit-wise-coal-bar-chart");
         const pitWiseCtx = pitWiseCanvas?.getContext("2d");
@@ -109,7 +187,7 @@ document.addEventListener("DOMContentLoaded", async () => {
                             y: {
                                 beginAtZero: true,
                                 title: { display: true, text: "Total Coal Production (M Tons)" },
-                                grid: { color: "#f0f0f0" }
+                                grid: { display: false }
                             }
                         },
                         plugins: {

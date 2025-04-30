@@ -40,7 +40,6 @@ exports.getProductionDashboard = async (req, res) => {
          THEN TOTALOB ELSE 0 
     END) AS monthly_ob,
 
-    -- Financial Year Coal and OB (April 1st to March 31st)
     SUM(CASE 
             WHEN PRODUCTION_DATE >= MAKEDATE(YEAR(CURRENT_DATE), 1) + INTERVAL 3 MONTH 
             AND PRODUCTION_DATE < MAKEDATE(YEAR(CURRENT_DATE) + 1, 1) + INTERVAL 3 MONTH 
@@ -83,6 +82,7 @@ FROM production;
         FROM production
         GROUP BY pit
         ORDER BY pit`);
+
         const [monthlyCoalOBResults] = await sequelize.query(`
                    SELECT
                        CASE
@@ -121,7 +121,7 @@ FROM production;
             ...productionResults[0],
             pitWiseCoal: pitWiseYearlyCoalSinceInceptionResults,
             monthlyCoalOB:monthlyCoalOBResults,
-            pitWiseCoalSinceIncepetion:pitWiseCoalSinceInceptionResults
+            pitWiseCoalSinceInception:pitWiseCoalSinceInceptionResults
         });
     } catch (error) {
         console.error("Error fetching production data:", error.message);
