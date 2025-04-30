@@ -76,6 +76,13 @@ FROM production;
             GROUP BY financial_year, pit
             ORDER BY financial_year, pit;
         `);
+        const [pitWiseCoalSinceInceptionResults] = await sequelize.query(`
+        SELECT
+            SUM(totalcoal) as pit_wise_total_coal,
+            pit
+        FROM production
+        GROUP BY pit
+        ORDER BY pit`);
         const [monthlyCoalOBResults] = await sequelize.query(`
                    SELECT
                        CASE
@@ -113,7 +120,8 @@ FROM production;
         res.json({
             ...productionResults[0],
             pitWiseCoal: pitWiseYearlyCoalSinceInceptionResults,
-            monthlyCoalOB:monthlyCoalOBResults
+            monthlyCoalOB:monthlyCoalOBResults,
+            pitWiseCoalSinceIncepetion:pitWiseCoalSinceInceptionResults
         });
     } catch (error) {
         console.error("Error fetching production data:", error.message);

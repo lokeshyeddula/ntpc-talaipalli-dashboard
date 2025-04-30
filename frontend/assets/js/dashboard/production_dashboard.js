@@ -10,7 +10,8 @@ document.addEventListener("DOMContentLoaded", async () => {
             inception_coal,
             inception_ob,
             pitWiseCoal,
-            monthlyCoalOB
+            monthlyCoalOB,
+            pitWiseCoalSinceIncepetion
         } = data;
 
         document.getElementById("coal-yearly-kpi-card").textContent = Math.round(yearly_coal) + " Tons";
@@ -18,6 +19,49 @@ document.addEventListener("DOMContentLoaded", async () => {
         document.getElementById("coal-since-inception-kpi-card").textContent = (inception_coal / 1e6).toFixed(2) + " M Tons";
         document.getElementById("ob-since-inception-kpi-card").textContent = (inception_ob / 1e6).toFixed(2) + " Mm³";
         document.getElementById("StrippingRatio-since-inception-kpi-card").textContent = (inception_ob / inception_coal).toFixed(2);
+
+        const pieCanvas = document.getElementById("pit-wise-coal-pie-chart-since-inception");
+        const pieCtx = pieCanvas?.getContext("2d");
+        if (pieCanvas) {
+            pieCanvas.width = pieCanvas.offsetWidth;
+            pieCanvas.height = pieCanvas.offsetHeight;
+        }
+
+        if (pitWiseCoalSinceIncepetion && pieCtx) {
+            const labels = pitWiseCoalSinceIncepetion.map(item => item.pit);
+            const values = pitWiseCoalSinceIncepetion.map(item => item.pit_wise_total_coal);
+            const backgroundColors = ['#4E79A7', '#F28E2B', '#E15759', '#76B7B2'];
+
+
+
+            new Chart(pieCtx, {
+                type: 'pie',
+                data: {
+                    labels: labels,
+                    datasets: [{
+                        data: values,
+                        backgroundColor: backgroundColors,
+                        borderWidth: 1
+                    }]
+                },
+                options: {
+                    responsive: true,
+                    plugins: {
+                        legend: {
+                            position: 'bottom'
+                        },
+                        tooltip: {
+                            callbacks: {
+                                label: function (ctx) {
+                                    const val = ctx.parsed;
+                                    return `${ctx.label}: ${(val / 1e6).toFixed(2)} M Tons`;
+                                }
+                            }
+                        }
+                    }
+                }
+            });
+        }
 
         const pitWiseCanvas = document.getElementById("pit-wise-coal-bar-chart");
         const pitWiseCtx = pitWiseCanvas?.getContext("2d");

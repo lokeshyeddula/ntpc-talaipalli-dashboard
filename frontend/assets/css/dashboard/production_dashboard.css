@@ -20,6 +20,7 @@ body {
   box-sizing: border-box;
   overflow: hidden;
   background-color: linear-gradient(to right, #f5f7fa, #c3cfe2);
+  justify-content:space-evenly;
 }
 
 .chart-title {
@@ -115,12 +116,12 @@ canvas {
 }
 
 .orange {
-  background: #ffc241;
+  background: #fc6f0e;
   color: #fff;
 }
 
 .green {
-  background-color: lightgreen;
+  background-color: #409549;
   color: #fff;
 }
 
@@ -132,16 +133,17 @@ canvas {
   padding: 1em;
   border-radius: 0.3em;
   font-family: sans-serif;
-  width: 240px;
+  width: 200px;
   min-width: 180px;
   margin-left: 0.5em;
   margin-top: 0.5em;
-  padding: 10px;
+  padding: 8px;
+
 }
 
 .card-value {
   display: block;
-  font-size: 200%;
+  font-size: 185%;
   font-weight: bolder;
 }
 

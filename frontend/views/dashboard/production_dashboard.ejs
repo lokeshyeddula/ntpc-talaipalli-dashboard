@@ -1,68 +1,77 @@
 <%- include("../partials/header", { title: "Dashboard", pageCSS: "dashboard/production_dashboard" }) %>
 
 <div id="content">
-    <div class="container-fluid px-4 mt-4">
-        <h4 class="section-title">Production Metrics</h4>
+  <div class="container-fluid px-4 mt-4">
+    <h4 class="section-title">Production Metrics</h4>
 
-        <div class="row">
-
-            <div id="container">
-                <div class="kpi-card orange">
-                  <span id='coal-yearly-kpi-card' class="card-value"></span>
-                  
-                  <span  class="card-text">Coal Production FY 25-26</span>
-                   <i class="fas fa-shopping-cart icon"></i>
-                </div>
-               
-               
-                  <div class="kpi-card purple">
-                  <span  id='ob-yearly-kpi-card' class="card-value"></span>
-                  <span class="card-text">Ob Removal FY 25-26</span>
-                     <i class="fas fa-shopping-cart icon"></i>
-                </div>
-                
-                    <div class="kpi-card grey-dark">
-                  <span id='coal-since-inception-kpi-card' class="card-value"></span>
-                  <span  class="card-text">Coal Since Inception</span>
-                       <i class="fas fa-shopping-cart icon"></i>
-                </div>
-                
-                  <div class="kpi-card red">
-                  <span id='ob-since-inception-kpi-card' class="card-value"></span>
-                  <span class="card-text">OB Removal Since Inception</span>
-                    <i class="fas fa-shopping-cart icon"></i>
-                </div>
-                <div class="kpi-card green">
-                    <span id='StrippingRatio-since-inception-kpi-card' class="card-value"></span>
-                    <span class="card-text">Stripping Ratio Since Inception</span>
-                      <i class="fas fa-shopping-cart icon"></i>
-                  </div>
-              </div>
-
-
-            <!-- Bar Chart Container -->
-            <div class="col-lg-12 col-md-12 mt-4 mt-lg-0">
-                <div class="bar-chart-card shadow-sm p-3 rounded">
-                    <h5 class="card-title">Pit Wise Coal Yearly Since Inception</h5>
-                    <label for="financial-year-select" class="form-label mt-2">Select Financial Year:</label>
-                    <select id="financial-year-select" class="form-select">
-                        <option value="">All Years</option>
-                    </select>
-                    <canvas id="pit-wise-coal-bar-chart" class="mt-4"></canvas>
-                </div>
-            </div>
-        <div class="col-lg-12 col-md-12 mt-4 mt-lg-0">
-            <div class="line-chart-card shadow-sm p-3 rounded">
-                <h5 class="card-title">Monthly Coal vs OB (Financial Year)</h5>
-                <label for="financial-year-line-select" class="form-label mt-2">Select Financial Year:</label>
-                <select id="financial-year-line-select" class="form-select">
-
-                </select>
-                <canvas id="monthly-coal-ob-line-chart" class="mt-4"></canvas>
-            </div>
+    <div class="row">
+      <div id="container">
+        <div class="kpi-card orange">
+          <span id="coal-yearly-kpi-card" class="card-value"></span>
+          <span class="card-text">Coal Production FY 25-26</span>
+          <i class="fas fa-shopping-cart icon"></i>
         </div>
+
+        <div class="kpi-card purple">
+          <span id="ob-yearly-kpi-card" class="card-value"></span>
+          <span class="card-text">Ob Removal FY 25-26</span>
+          <i class="fas fa-shopping-cart icon"></i>
         </div>
+
+        <div class="kpi-card grey-dark">
+          <span id="coal-since-inception-kpi-card" class="card-value"></span>
+          <span class="card-text">Coal Since Inception</span>
+          <i class="fas fa-shopping-cart icon"></i>
+        </div>
+
+        <div class="kpi-card red">
+          <span id="ob-since-inception-kpi-card" class="card-value"></span>
+          <span class="card-text">OB Removal Since Inception</span>
+          <i class="fas fa-shopping-cart icon"></i>
+        </div>
+
+        <div class="kpi-card green">
+          <span id="StrippingRatio-since-inception-kpi-card" class="card-value"></span>
+          <span class="card-text">Stripping Ratio Since Inception</span>
+          <i class="fas fa-shopping-cart icon"></i>
+        </div>
+      </div>
+
+      <div class="col-lg-6 col-md-6 mt-4 mt-lg-0">
+        <div class="bar-chart-card shadow-sm p-3 rounded">
+          <h5 class="card-title">Pit Wise Coal Since Inception</h5>
+          <canvas id="pit-wise-coal-pie-chart-since-inception" class="mt-4"></canvas>
+        </div>
+      </div>
+
+      <div class="col-lg-6 col-md-6 mt-4 mt-lg-0">
+        <div class="bar-chart-card shadow-sm p-3 rounded">
+          <h5 class="card-title">Since Inception</h5>
+          <canvas id="pit-wise-coal-pie-chart-since-inception" class="mt-4"></canvas>
+        </div>
+      </div>
+
+      <div class="col-lg-12 col-md-12 mt-4 mt-lg-0">
+        <div class="bar-chart-card shadow-sm p-3 rounded">
+          <h5 class="card-title">Pit Wise Coal Yearly Since Inception</h5>
+          <label for="financial-year-select" class="form-label mt-2">Select Financial Year:</label>
+          <select id="financial-year-select" class="form-select">
+            <option value="">All Years</option>
+          </select>
+          <canvas id="pit-wise-coal-bar-chart" class="mt-4"></canvas>
+        </div>
+      </div>
+
+      <div class="col-lg-12 col-md-12 mt-4 mt-lg-0">
+        <div class="line-chart-card shadow-sm p-3 rounded">
+          <h5 class="card-title">Monthly Coal vs OB (Financial Year)</h5>
+          <label for="financial-year-line-select" class="form-label mt-2">Select Financial Year:</label>
+          <select id="financial-year-line-select" class="form-select"></select>
+          <canvas id="monthly-coal-ob-line-chart" class="mt-4"></canvas>
+        </div>
+      </div>
     </div>
+  </div>
 </div>
 
 <%- include("../partials/footer") %>
