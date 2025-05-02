@@ -1,3 +1,17 @@
+// Logout
+document.getElementById('logoutBtn')?.addEventListener('click', function (e) {
+    e.preventDefault();
+    localStorage.removeItem('token');
+    window.location.href = '/';
+});
+
+// Prevent Back Button
+function preventBack() {
+    history.pushState(null, '', location.href);
+    window.addEventListener('popstate', () => history.pushState(null, '', location.href));
+}
+preventBack();
+
 document.addEventListener("DOMContentLoaded", async () => {
     try {
         const response = await fetch("/dashboard/production-data");

@@ -62,11 +62,13 @@ canvas {
 #pit-wise-coal-bar-chart,
 #monthly-coal-ob-line-chart {
   margin-top: 20px;
+  margin-bottom:10px;
   width: 100% !important;
   height: auto !important;
   max-height: 400px;
   background: linear-gradient(to right, #f5f7fa, #c3cfe2);
   border-radius: 8px;
+  padding:20px;
 }
 
 .icon {

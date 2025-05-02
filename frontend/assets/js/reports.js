@@ -1,10 +1,15 @@
-function preventBack() {
-    window.history.pushState(null, "", window.location.href);
-    window.addEventListener("popstate", function () {
-        window.history.pushState(null, "", window.location.href);
-    });
-}
+// Logout
+document.getElementById('logoutBtn')?.addEventListener('click', function (e) {
+    e.preventDefault();
+    localStorage.removeItem('token');
+    window.location.href = '/';
+});
 
+// Prevent Back Button
+function preventBack() {
+    history.pushState(null, '', location.href);
+    window.addEventListener('popstate', () => history.pushState(null, '', location.href));
+}
 preventBack();
 
 document.addEventListener("DOMContentLoaded", () => {

@@ -85,6 +85,12 @@ async function fetchGoogleSheetData() {
         Designation_of_Observer: row.c[6]?.v || '',
         Relay: row.c[7]?.v || '',
         Contact_Number: row.c[8]?.v || '',
+        Deviation_Type: row.c[9]?.v || '',
+        Location_of_the_deviation: row.c[10]?.v || '',
+        Brief_Description_of_the_Deviation_Incident: row.c[11]?.v || '',
+        Persons_Involved_responsible: row.c[12]?.v || '',
+        Immediate_action_taken: row.c[13]?.v || '',
+        Status_of_Deviation: row.c[18]?.v || '',
       };
     });
 
