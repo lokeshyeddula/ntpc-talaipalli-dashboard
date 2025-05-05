@@ -193,7 +193,9 @@ function downloadPDF() {
 
 
     document.body.appendChild(container);
-
+    tableClone.style.transform = "scale(0.6)";
+    tableClone.style.transformOrigin = "top left";
+    tableClone.style.width = "90%";
     const opt = {
         margin: 0.2,
         filename: `DPR_Report_${selectedDate}.pdf`,
