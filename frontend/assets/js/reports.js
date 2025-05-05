@@ -178,30 +178,41 @@ function downloadExcel() {
 
     XLSX.writeFile(workbook, `Daily_Production_Report_${selectedDate}.xlsx`);
 }
+
 function downloadPDF() {
     const table = document.getElementById('reportTable');
     const selectedDate = document.getElementById("reportDate").value || "Report";
 
-
     const tableClone = table.cloneNode(true);
     const container = document.createElement("div");
-    container.style.padding = "20px";
+
+
+    container.style.width = "297mm";
+    container.style.height = "210mm";
+    container.style.padding = "20mm";
+    container.style.margin = "0";
     container.style.background = "white";
-    container.style.width = "210mm";
-    container.style.minHeight = "297mm";
-    container.appendChild(tableClone);
+    container.style.overflow = "hidden";
+    container.style.display = "flex";
+    container.style.justifyContent = "flex-start";
+    container.style.alignItems = "flex-start";
+    container.style.boxSizing = "border-box";
 
 
-    document.body.appendChild(container);
     tableClone.style.transform = "scale(0.6)";
     tableClone.style.transformOrigin = "top left";
-    tableClone.style.width = "90%";
+    tableClone.style.width = "100%";
+    tableClone.style.boxSizing = "border-box";
+
+    container.appendChild(tableClone);
+    document.body.appendChild(container);
+
     const opt = {
-        margin: 0.2,
+        margin: 0,
         filename: `DPR_Report_${selectedDate}.pdf`,
         image: { type: 'jpeg', quality: 1 },
         html2canvas: {
-            scale: 3,
+            scale: 2,
             useCORS: true,
             scrollY: 0,
             scrollX: 0
@@ -212,7 +223,7 @@ function downloadPDF() {
             orientation: 'landscape'
         },
         pagebreak: {
-            mode: ['avoid-all', 'css', 'legacy']
+            mode: []
         }
     };
 
@@ -224,6 +235,7 @@ function downloadPDF() {
             document.body.removeChild(container);
         });
 }
+
 
 const themeBtn = document.getElementById('themeToggle');
 if (themeBtn) {
