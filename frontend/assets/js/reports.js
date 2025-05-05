@@ -189,7 +189,7 @@ function downloadPDF() {
 
     container.style.width = "297mm";
     container.style.height = "210mm";
-    container.style.padding = "20mm";
+    container.style.padding = "10mm";
     container.style.margin = "0";
     container.style.background = "white";
     container.style.overflow = "hidden";
