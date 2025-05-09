@@ -51,7 +51,7 @@ body {
 }
 
 .header-row td {
-  background-color: #5f9ea0;
+  background-color: #eeeee4;
   color: black;
   font-weight: bold;
 }
@@ -65,7 +65,7 @@ body {
 }
 
 .info-row td {
-  background-color: #5f9ea0;
+  background-color: #eeeee4;
   font-weight: bold;
   color: black;
 }
