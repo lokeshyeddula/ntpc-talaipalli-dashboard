@@ -1,9 +1,98 @@
 <%- include("partials/header", { title: "Safety", pageCSS: "safety" }) %>
-<div id="content">
+
+<form id="safetyForm">
+  <div id="content">
     <div class="container mt-4">
-        <h4>Safety section need to update this page </h4>
-       
+      <h5>Monthly Safety Stats:</h5>
+      <div class="container-fluid p-3">
+        <div class="row g-2">
+
+          <div class="col-md-4 col-6">
+            <table class="table table-bordered text-center small">
+              <thead class="table-primary">
+                <tr>
+                  <th>Sl No.</th>
+                  <th>Lag Indicator</th>
+                  <th>till on.30.04.2025</th>
+                  <th>Cumulative (FY 2025-26)</th>
+                </tr>
+              </thead>
+              <tbody>
+                <tr><td>1</td><td>Fatal Accident (Mines)</td><td><input type="number"></td><td><input type="number"></td></tr>
+                <tr><td>2</td><td>Fatal Accident (Dispatch)</td><td><input type="number"></td><td><input type="number"></td></tr>
+                <tr><td>3</td><td>Serious Bodily Injury</td><td><input type="number"></td><td><input type="number"></td></tr>
+                <tr><td>4</td><td>Reportable Injury</td><td><input type="number"></td><td><input type="number"></td></tr>
+                <tr><td>5</td><td>First Aid Cases</td><td><input type="number"></td><td><input type="number"></td></tr>
+                <tr><td>6</td><td>Fire Incident</td><td><input type="number"></td><td><input type="number"></td></tr>
+                <tr><td colspan="2"><strong>Total</strong></td><td><input type="number"></td><td><input type="number"></td></tr>
+              </tbody>
+            </table>
+          </div>
+
+          <div class="col-md-4 col-6">
+            <table class="table table-bordered text-center small">
+              <thead class="table-primary">
+                <tr>
+                  <th>Sl no</th>
+                  <th>Lead Indicator</th>
+                  <th>till on.30.04.2025</th>
+                  <th>Cumulative (FY 2025-26)</th>
+                </tr>
+              </thead>
+              <tbody>
+                <tr><td>1</td><td>Near Miss (Mining)</td><td><input type="number"></td><td><input type="number"></td></tr>
+                <tr><td>2</td><td>No of Visits*</td><td><input type="number"></td><td><input type="number"></td></tr>
+                <tr><td rowspan="3">3</td><td>Training (MVTC) - Initial</td><td><input type="number"></td><td><input type="number"></td></tr>
+                <tr><td>Training (MVTC) - Refresher</td><td><input type="number"></td><td><input type="number"></td></tr>
+                <tr><td>Training (MVTC) - Special</td><td><input type="number"></td><td><input type="number"></td></tr>
+                <tr><td>4</td><td>Safety/ TBT / PEP Talks</td><td><input type="number"></td><td><input type="number"></td></tr>
+                <tr><td>5</td><td>Deviation</td><td><input type="number"></td><td><input type="number"></td></tr>
+              </tbody>
+            </table>
+          </div>
+
+          <div class="col-md-4 col-6">
+            <table class="table table-bordered text-center small">
+              <thead class="table-primary">
+                <tr><th colspan="7">Deviation Analysis</th></tr>
+                <tr>
+                  <th></th><th>UA Open</th><th>UA Closed</th><th>UC Open</th><th>UC Closed</th>
+                  <th>Total Deviations</th><th>Total Open</th>
+                </tr>
+              </thead>
+              <tbody>
+                <tr>
+                  <td>till on.30.04.2025</td>
+                  <td><input type="number"></td>
+                  <td><input type="number"></td>
+                  <td><input type="number"></td>
+                  <td><input type="number"></td>
+                  <td><input type="number"></td>
+                  <td><input type="number"></td>
+                </tr>
+                <tr>
+                  <td>Cumulative (FY 2025-26)</td>
+                  <td><input type="number"></td>
+                  <td><input type="number"></td>
+                  <td><input type="number"></td>
+                  <td><input type="number"></td>
+                  <td><input type="number"></td>
+                  <td><input type="number"></td>
+                </tr>
+              </tbody>
+            </table>
+          </div>
+
+        </div>
+
+        <div class="text-center mt-3">
+          <button type="submit" class="btn btn-success px-5">Save</button>
+        </div>
+
+      </div>
     </div>
-</div>
+  </div>
+</form>
+
 <%- include("partials/footer") %>
 <script src="assets/js/safety.js"></script>

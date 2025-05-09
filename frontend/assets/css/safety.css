@@ -1,0 +1,116 @@
+/* General Layout */
+body {
+  font-family: Arial, sans-serif;
+  background-color: #f4f4f9;
+  margin: 0;
+  padding: 0;
+}
+
+.container {
+  margin-top: 10px;
+}
+
+/* Table Styles */
+table {
+  width: 60%;
+  margin-bottom: 5px;
+  border-collapse: collapse;
+  font-size: 0.5rem; /* Smaller font size for compact look */
+}
+
+.table-bordered {
+  border: 1px solid #dee2e6;
+}
+
+.table-primary {
+  background-color: #cce5ff;
+  color: #004085;
+}
+
+th, td {
+  padding: 6px 8px; /* Reduced padding for compactness */
+  text-align: center;
+  border: 1px solid #dee2e6;
+  font-size: 0.5rem; /* Smaller text */
+}
+
+th {
+  background-color: #007bff;
+  color: white;
+}
+
+td input {
+  width: 90%; /* Decrease input field width to optimize space */
+  padding: 4px;
+  border: 1px solid #ced4da;
+  border-radius: 4px;
+  font-size: 0.5rem; /* Reduced font size for inputs */
+}
+
+td input:focus {
+  outline-color: #007bff;
+}
+
+/* Button Styles */
+.update-btn {
+  display: block;
+  width: 60px; /* Reduced width of buttons */
+  margin: 5px auto; /* Reduced space between button and table */
+  padding: 8px;
+  background-color: #007bff;
+  color: white;
+  border: none;
+  border-radius: 4px;
+  cursor: pointer;
+  font-size: 0.5rem;
+}
+
+.update-btn:hover {
+  background-color: #0056b3;
+}
+
+/* Small Text */
+.small {
+  font-size: 0.5rem;
+}
+
+/* Responsive Design */
+@media (max-width: 768px) {
+  .container-fluid {
+    padding: 5px;
+  }
+
+  .col-md-6 {
+    margin-bottom: 10px;
+  }
+
+  table {
+    font-size: 0.5rem; /* Decrease font size for smaller screens */
+  }
+
+  th, td {
+    padding: 6px 8px; /* Further reduce padding on smaller screens */
+  }
+
+  td input {
+    width: 30%; /* Reduce input width for smaller screens */
+  }
+
+  .update-btn {
+    width: 50%;
+  }
+}
+
+@media (max-width: 576px) {
+  th, td {
+    padding: 5px 7px; /* Further compact table on very small screens */
+  }
+
+  td input {
+    width: 100%; /* Input fields take full width on very small screens */
+  }
+
+  .update-btn {
+    width: 100%;
+  }
+}

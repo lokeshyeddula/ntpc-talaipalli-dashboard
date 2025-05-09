@@ -1,7 +1,14 @@
-<%- include("../partials/header", { title: "Dashboard", pageCSS: "dashboard/production_dashboard" }) %>
+<%- include("../partials/header", { title: "Dashboard", pageCSS: "dashboard/safety_dashboard" }) %>
 
 <h4 class="section-title">Safety Metrics</h4>
-
+<div class="container col-lg-6">
+    <select id="fySelect" onchange="updateChart()">
+      <option value="2022-23">FY 22-23</option>
+      <option value="2023-24">FY 23-24</option>
+      <option value="2024-25" selected>FY 24-25</option>
+    </select>
+    <canvas id="safetyPie"></canvas>
+  </div>
 
 <%- include("../partials/footer") %>
 

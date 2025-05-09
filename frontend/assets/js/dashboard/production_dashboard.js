@@ -86,16 +86,36 @@ if (yearlyCoalObCanvas) {
 if (pitWiseCoal && yearlyCoalObCtx) {
     const yearlyDataMap = {};
 
+
+    const currentMonth = new Date().getMonth() + 1;
+    let currentFinancialYear = '';
+    const currentYear = new Date().getFullYear();
+
+
+    if (currentMonth >= 4) {
+        currentFinancialYear = `FY ${String(currentYear).slice(2)}-${String(currentYear + 1).slice(2)}`;
+    } else {
+        currentFinancialYear = `FY ${String(currentYear - 1).slice(2)}-${String(currentYear).slice(2)}`;
+    }
+
+
+
+    console.log("current financial year is"+currentFinancialYear)
     pitWiseCoal.forEach(item => {
         const year = item.financial_year;
-        if (!yearlyDataMap[year]) {
-            yearlyDataMap[year] = { coal: 0, ob: 0 };
+
+        // Exclude the current financial year
+        if (year !== currentFinancialYear) {
+            if (!yearlyDataMap[year]) {
+                yearlyDataMap[year] = { coal: 0, ob: 0 };
+            }
+            yearlyDataMap[year].coal += item.yearly_total_coal;
+            yearlyDataMap[year].ob += item.yearly_total_ob;
         }
-        yearlyDataMap[year].coal += item.yearly_total_coal;
-        yearlyDataMap[year].ob += item.yearly_total_ob;
     });
 
     const sortedYears = Object.keys(yearlyDataMap).sort();
+    console.log(sortedYears)
 
     const coalData = sortedYears.map(year => +(yearlyDataMap[year].coal / 1e6).toFixed(2));
     const obData = sortedYears.map(year => +(yearlyDataMap[year].ob / 1e6).toFixed(2));
@@ -128,18 +148,17 @@ if (pitWiseCoal && yearlyCoalObCtx) {
         options: {
             responsive: true,
             maintainAspectRatio: false,
-          scales: {
-              x: {
-                  title: { display: true, text: "Financial Year" },
-                  grid: { display: false }
-              },
-              y: {
-                  beginAtZero: true,
-                  title: { display: true, text: "Total Coal Production (M Tons)" },
-                  grid: { display: false }
-              }
-          }
-,
+            scales: {
+                x: {
+                    title: { display: true, text: "Financial Year" },
+                    grid: { display: false }
+                },
+                y: {
+                    beginAtZero: true,
+                    title: { display: true, text: "Total Coal Production (M Tons)" },
+                    grid: { display: false }
+                }
+            },
             plugins: {
                 legend: { position: 'top' },
                 tooltip: {
@@ -154,6 +173,7 @@ if (pitWiseCoal && yearlyCoalObCtx) {
         }
     });
 }
+
 
         const pitWiseCanvas = document.getElementById("pit-wise-coal-bar-chart");
         const pitWiseCtx = pitWiseCanvas?.getContext("2d");
@@ -239,6 +259,7 @@ if (pitWiseCoal && yearlyCoalObCtx) {
 
         if (monthlyCoalOB && monthlyCoalObCtx) {
             const monthlyYears = [...new Set(monthlyCoalOB.map(entry => entry.financial_year))];
+
             const monthNames = ["April", "May", "June", "July", "August", "September", "October", "November", "December", "January", "February", "March"];
             const monthNumberArray = [4, 5, 6, 7, 8, 9, 10, 11, 12, 1, 2, 3];
             let lineChart;

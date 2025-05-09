@@ -1,0 +1,63 @@
+body {
+  background: linear-gradient(to right, #f5f7fa, #c3cfe2);
+  font-family: 'Poppins', 'Segoe UI', Tahoma, Geneva, Verdana, sans-serif;
+  color: #2c3e50;
+  box-sizing: border-box;
+  margin: 0;
+  padding: 0;
+}
+
+.container {
+  max-width: 450px;
+  margin-left: 10px;
+  padding: 20px;
+  width: 50%;
+}
+
+h4.section-title {
+  text-align: center;
+  font-size: 2rem;
+  font-weight: 600;
+  margin-bottom: 25px;
+  color: #3b3b3b;
+}
+
+#fySelect {
+  width: fit-content;
+  padding: 12px 18px;
+  margin-bottom: 25px;
+  background: linear-gradient(to right, #f5f7fa, #c3cfe2);
+  border: 2px solid #90be6d;
+  border-radius: 8px;
+  font-size: 1rem;
+  font-weight: 500;
+  color: #2c3e50;
+  outline: none;
+  transition: background-color 0.3s ease, border 0.3s ease;
+}
+
+#fySelect:focus {
+  background-color: #f1f1f1;
+  border-color: #577590;
+}
+
+#fySelect:hover {
+  background-color: #f9f9f9;
+}
+
+.card-title {
+  font-size: 1.25rem;
+  font-weight: 600;
+  color: #2c3e50;
+  text-align: center;
+  margin-bottom: 15px;
+}
+
+select {
+  transition: all 0.3s ease;
+}
+
+canvas {
+  width: 100%;
+  height: auto;
+}
